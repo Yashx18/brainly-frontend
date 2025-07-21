@@ -1,31 +1,26 @@
 import "./App.css";
-import Button from "./components/Button";
+import { Button } from "./components/Button";
+import { PlusIcon } from "./icons/PlusIcon";
 
 function App() {
   return (
     <div className="bg-[#292929] w-full h-dvh flex items-center justify-center">
       <Button
         onClick={() => {}}
-        variants="secondary"
+        variant="secondary"
         text="Share Brain"
         size="md"
+        startIcon={<PlusIcon  size="md"/>}
       />
       <Button
         onClick={() => {}}
-        variants="primary"
+        variant="primary"
         text="Add content"
         size="lg"
       />
     </div>
   );
 }
-// type ButtonProps = {
-//   variants: "primary" | "secondary";
-//   size: "sm" | "md" | "lg";
-//   text: string;
-//   startIcon?: any;
-//   endIcon?: any;
-//   onClick: () => void;
-// };
+
 
 export default App;

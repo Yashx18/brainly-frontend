@@ -1,15 +1,17 @@
+import type { ReactElement } from "react";
+
 type ButtonProps = {
-  variants: "primary" | "secondary";
+  variant: "primary" | "secondary";
   size: "sm" | "md" | "lg";
   text: string;
-  startIcon?: any;
+  startIcon?: ReactElement;
   endIcon?: any;
   onClick: () => void;
 };
 
 const variantStyles = {
-  primary: "bg-[#4345d7]  text-[#dbe4ff]",
-  secondary: " bg-[#dbe4ff] text-[#4345d7]",
+  primary: "bg-[#4345d7]  text-[#dbe4ff] hover:bg-[#383ab5]",
+  secondary: " bg-[#dbe4ff] text-[#4345d7] hover:bg-[#c1c8de]",
 };
 
 const sizeStyles = {
@@ -19,14 +21,13 @@ const sizeStyles = {
 };
 
 const defaultStyles =
-  "font-semi-bold text-md flex items-center justify-between rounded-xl";
+  "font-semi-bold text-md flex items-center justify-between rounded-xl cursor-pointer ";
 
-const Button = (props: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
   return (
-    <div className="rounded-2xl">
-      {props.startIcon}
+    <div className="rounded-xl">
       <p
-        className={`${variantStyles[props.variants]},${defaultStyles}, ${
+        className={`${variantStyles[props.variant]} ${defaultStyles} ${
           sizeStyles[props.size]
         } `}
       >
@@ -37,4 +38,3 @@ const Button = (props: ButtonProps) => {
     </div>
   );
 };
-export default Button;
