@@ -1,16 +1,17 @@
 import "./App.css";
 import { Button } from "./components/Button";
+import { Card } from "./components/Card";
 import { PlusIcon } from "./icons/PlusIcon";
 
 function App() {
   return (
-    <div className="bg-[#292929] w-full h-dvh flex items-center justify-center">
+    <div className="bg-white w-screen h-dvh flex flex-col items-center justify-center">
       <Button
         onClick={() => {}}
         variant="secondary"
         text="Share Brain"
         size="md"
-        startIcon={<PlusIcon  size="md"/>}
+        startIcon={<PlusIcon size="md" />}
       />
       <Button
         onClick={() => {}}
@@ -18,9 +19,9 @@ function App() {
         text="Add content"
         size="lg"
       />
+      <Card title={"Test"} link={"none"} type="yt" />
     </div>
   );
 }
-
 
 export default App;
