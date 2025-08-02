@@ -1,15 +1,15 @@
 import type { ReactElement } from "react";
 
 interface SideBarProps {
-	text: String,
-	logo: ReactElement,
+  text: String;
+  logo: ReactElement;
 }
 
-export const SideBarItem = ({ text, logo } : SideBarProps) => {
-	return (
-    <div className="flex items-center justify-around w-20">
-      {logo}
-      <div className="px-2 py-1 text-md">{text}</div>
+export const SideBarItem = ({ text, logo }: SideBarProps) => {
+  return (
+    <div className="flex items-center w-full  px-12  cursor-pointer hover:bg-[#e2e2e2]">
+      <span className="">{logo}</span>
+      <div className="p-3 text-xl flex items-start">{text}</div>
     </div>
   );
 };
