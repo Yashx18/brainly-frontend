@@ -6,7 +6,7 @@ type ButtonProps = {
   text: string;
   startIcon?: ReactElement;
   endIcon?: any;
-  onClick: () => void;
+  stateUpdater?: any;
 };
 
 const variantStyles = {
@@ -23,17 +23,17 @@ const sizeStyles = {
 const defaultStyles =
   "font-semi-bold text-md flex items-center justify-between rounded-xl cursor-pointer ";
 
-export const Button = (props: ButtonProps) => {
+export const Button = ({variant, size, text, startIcon, stateUpdater, endIcon}: ButtonProps) => {
   return (
-    <div className="rounded-xl">
+    // @ts-ignore
+    <div className="rounded-xl" onClick={() => stateUpdater(val => !val )}>
       <p
-        className={`${variantStyles[props.variant]} ${defaultStyles} ${
-          sizeStyles[props.size]
-        } `}
+        className={`${variantStyles[variant]} ${defaultStyles} ${sizeStyles[size]} `}
       >
-        {props.startIcon}
-        {props.text}
-        {props.endIcon}
+
+        {startIcon}
+        {text}
+        {endIcon}
       </p>
     </div>
   );
