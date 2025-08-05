@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 interface SignUpProps {
   setFn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -5,6 +7,29 @@ interface SignUpProps {
 }
 
 const SignUp = ({ setFn, setPage }: SignUpProps) => {
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordeRef = useRef<HTMLInputElement>(null);
+
+  async function signUp() {
+    const username = usernameRef.current?.value;
+    const password = passwordeRef.current?.value;
+
+    try {
+      const response = await axios.post("http://localhost:3000/api/vi/sign-up", {
+        username,
+        password,
+      });
+      if (response.data) {
+        alert('Signed up successfully');
+      } else {
+        alert('Sign up failed');
+      }
+    } catch (error) {
+      alert('Error signing up');
+      console.error(error);
+    }
+  }
+
   return (
     <div
       className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center
@@ -20,10 +45,18 @@ const SignUp = ({ setFn, setPage }: SignUpProps) => {
             }}
           />
         </div>
-        <form action="#" className="w-full">
+        <form
+          action="#"
+          className="w-full"
+          onSubmit={(e) => {
+            e.preventDefault();
+            signUp();
+          }}
+        >
           <div className="mb-2">
-            <p>Email</p>
+            <p>Username</p>
             <input
+              ref={usernameRef}
               type="text"
               className="w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
             />
@@ -31,7 +64,8 @@ const SignUp = ({ setFn, setPage }: SignUpProps) => {
           <div className="mb-3">
             <p>Password</p>
             <input
-              type="text"
+              ref={passwordeRef}
+              type="password"
               className="w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
             />
             <span className="cursor-pointer w-full flex items-center justify-end my-1">
@@ -40,9 +74,12 @@ const SignUp = ({ setFn, setPage }: SignUpProps) => {
           </div>
 
           <div>
-            <div className="w-full cursor-pointer bg-purple-500 text-white font-medium flex items-center justify-center py-2 rounded-md hover:bg-[#9f579c]">
+            <button
+              type="submit"
+              className="w-full cursor-pointer bg-purple-500 text-white font-medium flex items-center justify-center py-2 rounded-md hover:bg-[#9f579c]"
+            >
               Sign Up
-            </div>
+            </button>
           </div>
 
           <div className="flex items-center justify-center mt-5">
