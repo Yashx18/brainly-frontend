@@ -23,10 +23,12 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
       );
       if (response.data) {
         alert("Sign up successfully");
+        localStorage.setItem("token", response.data.token);
+        
+
       } else {
         alert("Sign up failed");
       }
-      console.log(response.data);
     } catch (error) {
       alert("Error signing in");
       console.error(error);
