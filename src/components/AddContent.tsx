@@ -1,6 +1,17 @@
 import axios from "axios";
 import { useRef } from "react";
 import { IoMdClose } from "react-icons/io";
+import TypeOptions from "./TypeOptions";
+import { useState } from "react";
+
+const ContentType = {
+  Article: "Article",
+  Video: "Video",
+  Image: "Image",
+  Other: "Other",
+  Youtube: "yt",
+} as const;
+
 interface AddContentProps {
   setAddContent: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -8,12 +19,14 @@ interface AddContentProps {
 const AddContent = ({ setAddContent }: AddContentProps) => {
   const linkRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
-  const typeRef = useRef<HTMLInputElement>(null);
+  const [type, setType] = useState(ContentType.Youtube);
+  const [color, setColor] = useState("black");
+  const [bgColor, setBgColor] = useState("white");
 
   async function addContent() {
     const title = titleRef.current?.value;
     const link = linkRef.current?.value;
-    const type = typeRef.current?.value;
+
     console.log({
       link,
       title,
@@ -40,7 +53,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
       if (response.data) {
         alert(response.data.message);
         console.log(response.data.message);
-      } 
+      }
     } catch (error) {
       alert("Unable to send content");
       console.error(error);
@@ -79,12 +92,19 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
             />
           </div>
           <div className="mb-3">
+            {/* const contentTypes = ["image", "video", "audio", "URL", "text"]; // Extend as needed */}
             <p>Type</p>
-            <input
-              ref={typeRef}
-              type="text"
-              className="w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
-            />
+            <div className=" w-full flex items-start justify-start flex-wrap">
+              <TypeOptions
+                text="Text"
+                color={color}
+                bgColor={bgColor}
+                // onClick={() => {
+                //   setColor((val) => "black")
+                // }                }
+              />
+              <TypeOptions text="Youtube" color={color} />
+            </div>
           </div>
           <div>
             <div
