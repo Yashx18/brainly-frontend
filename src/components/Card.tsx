@@ -5,12 +5,12 @@ import { TextIcon } from "../icons/TextIcon";
 interface Cardprops {
   title: String;
   link: String;
-  type: "tweet" | "yt";
+  type: "text" | "URL" | "image" | "video";
 }
 
 export const Card = ({ title, link, type }: Cardprops) => {
   return (
-    <div className="border border-neutral-500 rounded-md bg-amber-50 flex flex-col items-center justify-around shadow-md w-full max-w-72 p-2">
+    <div className="border border-neutral-500 rounded-md bg-amber-50 flex flex-col items-center justify-around shadow-md w-full max-w-72 p-2 m-1">
       <div className="top flex  items-center justify-between w-full">
         <div className="flex items-center justify-between">
           <span className="pr-2">

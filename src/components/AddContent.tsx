@@ -5,11 +5,10 @@ import TypeOptions from "./TypeOptions";
 import { useState } from "react";
 
 const ContentType = {
-  Article: "Article",
-  Video: "Video",
-  Image: "Image",
-  Other: "Other",
-  Youtube: "yt",
+  Video: "video",
+  Image: "image",
+  URL: "URL",
+  Text: "text",
 } as const;
 
 interface AddContentProps {
@@ -19,9 +18,7 @@ interface AddContentProps {
 const AddContent = ({ setAddContent }: AddContentProps) => {
   const linkRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
-  const [type, setType] = useState(ContentType.Youtube);
-  const [color, setColor] = useState("black");
-  const [bgColor, setBgColor] = useState("white");
+  const [type, setType] = useState<typeof ContentType[keyof typeof ContentType]>(ContentType.Text);
 
   async function addContent() {
     const title = titleRef.current?.value;
@@ -52,6 +49,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
 
       if (response.data) {
         alert(response.data.message);
+        
         console.log(response.data.message);
       }
     } catch (error) {
@@ -97,13 +95,32 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
             <div className=" w-full flex items-start justify-start flex-wrap">
               <TypeOptions
                 text="Text"
-                color={color}
-                bgColor={bgColor}
-                // onClick={() => {
-                //   setColor((val) => "black")
-                // }                }
+                variant={type === ContentType.Text ? "primary" : "secondary"}
+                onClick={() => {
+                  setType(ContentType.Text);
+                }}
               />
-              <TypeOptions text="Youtube" color={color} />
+              <TypeOptions
+                text="Video"
+                variant={type === ContentType.Video ? "primary" : "secondary"}
+                onClick={() => {
+                  setType(ContentType.Video);
+                }}
+              />
+              <TypeOptions
+                text="Image"
+                variant={type === ContentType.Image ? "primary" : "secondary"}
+                onClick={() => {
+                  setType(ContentType.Image);
+                }}
+              />
+              <TypeOptions
+                text="URL"
+                variant={type === ContentType.URL ? "primary" : "secondary"}
+                onClick={() => {
+                  setType(ContentType.URL);
+                }}
+              />
             </div>
           </div>
           <div>

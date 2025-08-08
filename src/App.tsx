@@ -28,9 +28,9 @@ function App() {
       {shareBrain && <ShareBrain setPage={setShareBrain} />}
 
       <SideBar setPage={setPage} />
-      <div className="w-full flex flex-col  bg-amber-800">
+      <div className="w-full flex flex-col bg-[#eaeaea]">
         {/* This is the navbar Section */}
-        <div className="flex items-center justify-end w-full bg-red-800">
+        <div className="flex items-center justify-end w-full border-b border-[#a3a3a3] bg-white">
           <Button
             stateUpdater={setShareBrain}
             variant="secondary"
@@ -46,8 +46,8 @@ function App() {
           />
         </div>
         {/* This is the Cards Section. */}
-        <div className="bg-red-400">
-          <Card title={"Test"} link={"none"} type="yt" />
+        <div className="">
+          <Card title={"Test"} link={"none"} type="URL" />
         </div>
       </div>
     </div>
