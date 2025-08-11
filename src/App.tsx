@@ -20,9 +20,9 @@ function App() {
     <div className="bg-white w-screen h-dvh flex ">
       {page &&
         (haveAccount ? (
-          <SignIn setFn={setHaveAccount} setPage={setPage} />
-        ) : (
           <SignUp setFn={setHaveAccount} setPage={setPage} />
+        ) : (
+          <SignIn setFn={setHaveAccount} setPage={setPage} />
         ))}
       {addContent && <AddContent setAddContent={setAddContent} />}
       {shareBrain && <ShareBrain setPage={setShareBrain} />}

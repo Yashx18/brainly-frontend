@@ -21,13 +21,15 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
           password,
         }
       );
-      if (response.data) {
-        alert("Sign up successfully");
+      if (response.data.token) {
+        alert("Sign in successfully");
+        console.log(response.data);
+        
         localStorage.setItem("token", response.data.token);
         
 
       } else {
-        alert("Sign up failed");
+        alert("User not found");
       }
     } catch (error) {
       alert("Error signing in");

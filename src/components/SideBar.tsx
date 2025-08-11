@@ -14,11 +14,11 @@ const SideBar = ({setPage}: SideBarProps) => {
   return (
     <div className="h-full  border-r flex flex-col items-start justify-between">
       <div>
-        <div className="flex items-center justify-around w-full py-2 border-b border-[#989898]">
+        <div className="flex items-center justify-center w-full py-2 border-b border-[#989898]">
           <span className="px-2">
             <LuBrain className="size-11 text-purple-600" />
           </span>
-          <p className="text-2xl pr-2 font-medium">Second Brain</p>
+          <p className="text-2xl  font-medium">Brainly</p>
         </div>
         <div className="h-auto  flex flex-col items-start ">
           <SideBarItem

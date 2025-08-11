@@ -6,28 +6,31 @@ interface ShareBrainProps {
 
 const ShareBrain = ({ setPage }: ShareBrainProps) => {
   async function shareBrain() {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/vi/brain/share",
-        {
-          share: true,
-        },
-        {
-          headers: {
-            Authorization: `${token}`,
-          },
-        }
-      );
 
-      if (response.data) {
-        alert(response.data.hash)
-        
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Sign in or Sign up first");
+    }else{
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/vi/brain/share",
+          {
+            share: true,
+          },
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+
+        if (response.data) {
+          alert(response.data.hash);
+        }
+      } catch (error) {
+        console.log("Error occured");
+        console.error(error);
       }
-    } catch (error) {
-      console.log("Error occured");
-      console.error(error);
-      
     }
   }
 

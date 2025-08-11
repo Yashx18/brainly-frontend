@@ -18,43 +18,42 @@ interface AddContentProps {
 const AddContent = ({ setAddContent }: AddContentProps) => {
   const linkRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
-  const [type, setType] = useState<typeof ContentType[keyof typeof ContentType]>(ContentType.Text);
+  const [type, setType] = useState<
+    (typeof ContentType)[keyof typeof ContentType]
+  >(ContentType.Text);
 
   async function addContent() {
+    const token = localStorage.getItem("token");
     const title = titleRef.current?.value;
     const link = linkRef.current?.value;
 
-    console.log({
-      link,
-      title,
-      type,
-    });
-
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/vi/content",
-        {
-          title,
-          link,
-          type,
-        },
-        {
-          headers: {
-            Authorization: `${token}`,
+    if (!token) {
+      console.log("Sign in or Sign up first");
+    } else {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/vi/content",
+          {
+            title,
+            link,
+            type,
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
 
-      if (response.data) {
-        alert(response.data.message);
-        
-        console.log(response.data.message);
+        if (response.data) {
+          alert(response.data.message);
+
+          console.log(response.data.message);
+        }
+      } catch (error) {
+        alert("Unable to send content");
+        console.error(error);
       }
-    } catch (error) {
-      alert("Unable to send content");
-      console.error(error);
     }
   }
   return (

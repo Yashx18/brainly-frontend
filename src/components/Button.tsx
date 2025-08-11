@@ -21,7 +21,7 @@ const sizeStyles = {
 };
 
 const defaultStyles =
-  "font-semi-bold text-md flex items-center justify-between rounded-xl cursor-pointer m-1";
+  "font-semi-bold text-md flex items-center justify-between rounded-xl cursor-pointer mx-1 my-2.5";
 
 export const Button = ({variant, size, text, startIcon, stateUpdater, endIcon}: ButtonProps) => {
   return (
