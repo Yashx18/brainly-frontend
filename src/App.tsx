@@ -1,13 +1,14 @@
 import { useState } from "react";
 import "./App.css";
 import { Button } from "./components/Button";
-import { Card } from "./components/Card";
+// import { Card } from "./components/Card";
 import SideBar from "./components/SideBar";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import AddContent from "./components/AddContent";
 import { PlusIcon } from "./icons/PlusIcon";
 import ShareBrain from "./components/ShareBrain";
+import useContent from "./hooks/useContent";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   const [page, setPage] = useState(false);
   const [shareBrain, setShareBrain] = useState(false);
   const [addContent, setAddContent] = useState(false);
+  const contents = useContent()
   return (
     <div className="bg-white w-screen h-dvh flex ">
       {page &&
@@ -46,8 +48,17 @@ function App() {
           />
         </div>
         {/* This is the Cards Section. */}
-        <div className="">
-          <Card title={"Test"} link={"none"} type="URL" />
+        <div className="Content">
+          {JSON.stringify(contents)}
+          {/* @ts-ignore */}
+          {/* {contents.map(({ type, link, title }: any) => {
+            <Card
+              title={title}
+              link={link}
+              type={type}
+
+            />
+          })} */}
         </div>
       </div>
     </div>

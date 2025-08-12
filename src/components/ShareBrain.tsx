@@ -5,32 +5,28 @@ interface ShareBrainProps {
 }
 
 const ShareBrain = ({ setPage }: ShareBrainProps) => {
+  let result;
   async function shareBrain() {
-
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Sign in or Sign up first");
-    }else{
-      try {
-        const response = await axios.post(
-          "http://localhost:3000/api/vi/brain/share",
-          {
-            share: true,
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/vi/brain/share",
+        {
+          share: true,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
           },
-          {
-            headers: {
-              Authorization: `${token}`,
-            },
-          }
-        );
-
-        if (response.data) {
-          alert(response.data.hash);
         }
-      } catch (error) {
-        console.log("Error occured");
-        console.error(error);
+      );
+
+      if (response.data) {
+        console.log(response.data.hash);
+        result = response.data.hash;
       }
+    } catch (error) {
+      console.log("Error occured");
+      console.error(error);
     }
   }
 
@@ -39,8 +35,10 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
       className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center
       "
     >
-      <div className="bg-white rounded-md w-110 h-auto px-12 py-8 flex flex-col items-center justify-center"
-      onClick={shareBrain}>
+      <div
+        className="bg-white rounded-md w-110 h-auto px-12 py-8 flex flex-col items-center justify-center"
+        onClick={shareBrain}
+      >
         <div className="w-full flex items-center justify-between mb-4">
           <span className="text-2xl font-medium ">Share Brain</span>
           <IoMdClose
@@ -52,7 +50,7 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
         </div>
         <div className="w-full">
           <span className="text-lg font-">Link is mentioned below :</span>
-          <p>http://localhost:3000/api/vi/brain/</p>
+          <p>`http://localhost:3000${result}`</p>
         </div>
       </div>
     </div>
