@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { Button } from "./components/Button";
-// import { Card } from "./components/Card";
+import { Card } from "./components/Card";
 import SideBar from "./components/SideBar";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
@@ -48,17 +48,12 @@ function App() {
           />
         </div>
         {/* This is the Cards Section. */}
-        <div className="Content">
-          {JSON.stringify(contents)}
-          {/* @ts-ignore */}
-          {/* {contents.map(({ type, link, title }: any) => {
-            <Card
-              title={title}
-              link={link}
-              type={type}
-
-            />
-          })} */}
+        <div className="Content w-full flex items-baseline justify-start flex-wrap">
+          {contents.map(({ title, link, type }) => <Card
+            type={type}
+            link={link}
+            title={title}
+          />)}
         </div>
       </div>
     </div>
