@@ -45,14 +45,14 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
           }
         );
 
-        if (response.data) {
+        if (response.data.message) {
           console.log(response.data.message);
+          setAddContent((val) => !val);
         }
       } catch (error) {
         alert("Unable to send content");
         console.error(error);
       }
-      setAddContent((val) => !val);
     }
   }
   return (

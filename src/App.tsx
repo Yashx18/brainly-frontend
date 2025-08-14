@@ -50,6 +50,7 @@ function App() {
         {/* This is the Cards Section. */}
         <div className="Content w-full flex items-baseline justify-start flex-wrap">
           {contents.map(({ title, link, type }) => <Card
+            key={title}
             type={type}
             link={link}
             title={title}

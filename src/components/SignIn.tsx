@@ -22,11 +22,10 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
         }
       );
       if (response.data.token) {
-        alert("Sign in successfully");
         console.log(response.data);
         
         localStorage.setItem("token", response.data.token);
-        
+        setPage(val => !val);
 
       } else {
         alert("User not found");
