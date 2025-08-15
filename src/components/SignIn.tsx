@@ -19,14 +19,14 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
         {
           username,
           password,
+        },
+        {
+          withCredentials: true,
         }
       );
-      if (response.data.token) {
+      if (response.data) {
         console.log(response.data);
-        
-        localStorage.setItem("token", response.data.token);
-        setPage(val => !val);
-
+        setPage((val) => !val);
       } else {
         alert("User not found");
       }
@@ -78,8 +78,10 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
             </span>
           </div>
           <div>
-            <div className="w-full cursor-pointer bg-purple-500 text-white font-medium flex items-center justify-center py-2 rounded-md hover:bg-[#9f579c]"
-            onClick={signIn}>
+            <div
+              className="w-full cursor-pointer bg-purple-500 text-white font-medium flex items-center justify-center py-2 rounded-md hover:bg-[#9f579c]"
+              onClick={signIn}
+            >
               Sign In
             </div>
           </div>

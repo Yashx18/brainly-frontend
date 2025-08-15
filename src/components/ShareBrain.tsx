@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 interface ShareBrainProps {
   setPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -6,23 +7,23 @@ interface ShareBrainProps {
 
 const ShareBrain = ({ setPage }: ShareBrainProps) => {
   let result;
+  const [brainState, setBrainState] = useState(true);
   async function shareBrain() {
     try {
       const response = await axios.post(
         "http://localhost:3000/api/vi/brain/share",
         {
-          share: true,
+          share: brainState,
         },
         {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
+          withCredentials: true,
         }
       );
 
       if (response.data) {
         console.log(response.data.hash);
         result = response.data.hash;
+        setBrainState(val => !val);
       }
     } catch (error) {
       console.log("Error occured");
@@ -39,7 +40,8 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
         className="bg-white rounded-md w-110 h-auto px-12 py-8 flex flex-col items-center justify-center"
         onClick={shareBrain}
       >
-        <div className="w-full flex items-center justify-between mb-4">
+        <div
+          className="w-full flex items-center justify-between mb-4">
           <span className="text-2xl font-medium ">Share Brain</span>
           <IoMdClose
             className="size-6 cursor-pointer hover:text-[#5c5c5c]"
@@ -50,7 +52,7 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
         </div>
         <div className="w-full">
           <span className="text-lg font-">Link is mentioned below :</span>
-          <p>`http://localhost:3000${result}`</p>
+          <p>`http:// host:3000${result}`</p>
         </div>
       </div>
     </div>

@@ -6,9 +6,7 @@ const useContent = () => {
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/vi/content", {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
+        withCredentials: true,
       })
       .then((response) => {
         setContent(response.data.content);

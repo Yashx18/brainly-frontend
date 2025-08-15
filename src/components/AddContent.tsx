@@ -23,36 +23,29 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
   >(ContentType.Text);
 
   async function addContent() {
-    const token = localStorage.getItem("token");
     const title = titleRef.current?.value;
     const link = linkRef.current?.value;
 
-    if (!token) {
-      console.log("Sign in or Sign up first");
-    } else {
-      try {
-        const response = await axios.post(
-          "http://localhost:3000/api/vi/content",
-          {
-            title,
-            link,
-            type,
-          },
-          {
-            headers: {
-              Authorization: `${token}`,
-            },
-          }
-        );
-
-        if (response.data.message) {
-          console.log(response.data.message);
-          setAddContent((val) => !val);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/vi/content",
+        {
+          title,
+          link,
+          type,
+        },
+        {
+          withCredentials: true,
         }
-      } catch (error) {
-        alert("Unable to send content");
-        console.error(error);
+      );
+
+      if (response.data.message) {
+        console.log(response.data.message);
+        setAddContent((val) => !val);
       }
+    } catch (error) {
+      alert("Unable to send content");
+      console.error(error);
     }
   }
   return (
@@ -76,15 +69,21 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
             <input
               ref={titleRef}
               type="text"
+              placeholder="Add title here !"
               className="w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
             />
           </div>
           <div className="mb-3">
-            <p>Link</p>
+            <p>Content</p>
             <input
               ref={linkRef}
-              type="text"
-              className="w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
+              type={type == "image" || type == "video" ? "file" : "text"}
+              placeholder="Add content here !"
+              className={
+                type == "text" || type == "URL"
+                  ? "w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
+                  : " cursor-pointer border-2 border-[#696969] rounded-md w-full px-2 py-1"
+              }
             />
           </div>
           <div className="mb-3">
