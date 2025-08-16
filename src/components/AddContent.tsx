@@ -21,19 +21,28 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
   const [type, setType] = useState<
     (typeof ContentType)[keyof typeof ContentType]
   >(ContentType.Text);
-
+  
   async function addContent() {
     const title = titleRef.current?.value;
-    const link = linkRef.current?.value;
+    const fileOrLink = linkRef.current?.files?.[0] || linkRef.current?.value;
+
+    const formData = new FormData();
+    formData.append("title", title || "")
+    formData.append("type", type)
+    
+    if (type == "image" || type == "video") {
+      // @ts-ignore
+      formData.append("file", linkRef.current?.files?.[0])
+    } else {
+      // @ts-ignore
+      formData.append("link", fileOrLink);
+    }
+
 
     try {
       const response = await axios.post(
         "http://localhost:3000/api/vi/content",
-        {
-          title,
-          link,
-          type,
-        },
+        formData,
         {
           withCredentials: true,
         }
@@ -63,7 +72,12 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
             }}
           />
         </div>
-        <form action="#" className="w-full">
+        <form
+          action="#"
+          className="w-full"
+          method="post"
+          encType="multipart/form-data"
+        >
           <div className="mb-2">
             <p>Title</p>
             <input
@@ -77,6 +91,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
             <p>Content</p>
             <input
               ref={linkRef}
+              name="contentBar"
               type={type == "image" || type == "video" ? "file" : "text"}
               placeholder="Add content here !"
               className={
