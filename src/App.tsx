@@ -19,7 +19,7 @@ function App() {
   const [addContent, setAddContent] = useState(false);
   const contents = useContent()
   return (
-    <div className="bg-white w-screen h-dvh flex ">
+    <div className="bg-white w-screen h-dvh flex  ">
       {page &&
         (haveAccount ? (
           <SignUp setFn={setHaveAccount} setPage={setPage} />
@@ -28,8 +28,10 @@ function App() {
         ))}
       {addContent && <AddContent setAddContent={setAddContent} />}
       {shareBrain && <ShareBrain setPage={setShareBrain} />}
-
-      <SideBar setPage={setPage} />
+      {/* SIDEBAR SECTION */}
+      <div className="flex items-center justify-center h-full">
+        <SideBar setPage={setPage} />
+      </div>
       <div className="w-full flex flex-col bg-[#eaeaea]">
         {/* This is the navbar Section */}
         <div className="flex items-center justify-end w-full border-b border-[#a3a3a3] bg-white">
@@ -49,12 +51,9 @@ function App() {
         </div>
         {/* This is the Cards Section. */}
         <div className="Content w-full flex items-baseline justify-start flex-wrap">
-          {contents.map(({ title, link, type }) => <Card
-            key={title}
-            type={type}
-            link={link}
-            title={title}
-          />)}
+          {contents.map(({ title, link, type }) => (
+            <Card key={title} type={type} link={link} title={title} />
+          ))}
         </div>
       </div>
     </div>
