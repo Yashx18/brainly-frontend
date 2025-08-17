@@ -9,6 +9,7 @@ import AddContent from "./components/AddContent";
 import { PlusIcon } from "./icons/PlusIcon";
 import ShareBrain from "./components/ShareBrain";
 import useContent from "./hooks/useContent";
+import axios from "axios";
 
 
 function App() {
@@ -51,9 +52,22 @@ function App() {
         </div>
         {/* This is the Cards Section. */}
         <div className="Content w-full flex items-baseline justify-start flex-wrap">
-          {contents.map(({ title, link, type }) => (
-            <Card key={title} type={type} link={link} title={title} />
-          ))}
+          {contents.map(({ title, link, type }) => {
+            let src = "";
+            if (type === "image" || type === "video") {
+               
+                 src =`http://localhost:3000${link}`
+          
+            }
+            return (
+              <Card
+                key={title}
+                type={type}
+                link={link == "image" ? src : link}
+                title={title}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

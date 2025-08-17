@@ -10,6 +10,7 @@ const useContent = () => {
       })
       .then((response) => {
         setContent(response.data.content);
+        console.log(response.data.content);
       });
   }, []);
 

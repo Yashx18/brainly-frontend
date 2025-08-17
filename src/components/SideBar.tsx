@@ -4,29 +4,41 @@ import { FaImages } from "react-icons/fa";
 import { FiYoutube } from "react-icons/fi";
 import { IoDocumentsOutline } from "react-icons/io5";
 import { IoLinkSharp } from "react-icons/io5";
-import { LuBrain } from "react-icons/lu";
+import { FaRegUser } from "react-icons/fa";
 import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
 import { TbLayoutSidebarRightCollapse } from "react-icons/tb";
+import { FaGraduationCap } from "react-icons/fa6";
 
-
+const styles = {
+  open: "h-14/15 w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] rounded-tr-xl rounded-br-xl",
+  close:
+    "h-14/15 w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] rounded-tr-xl rounded-br-xl",
+};
+const parentStyles = {
+  open: "flex items-center justify-between w-full py-3 border-b border-[#989898] px-1",
+  close:
+    "flex items-center justify-center w-full py-3 border-b border-[#989898]",
+};
 
 interface SideBarProps {
   setPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SideBar = ({ setPage }: SideBarProps) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
-    <div className="h-14/15 w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] rounded-tr-xl rounded-br-xl">
+    <div className={open ? styles.open : styles.close}>
       <div className="w-full">
-        <div className="flex items-center justify-between w-full py-3 border-b border-[#989898] px-1">
+        <div className={open ? parentStyles.open : parentStyles.close}>
           {/* LOGO SECTION */}
-          <div className="flex items-center justify-between">
-            <span className="mr-2 ">
-              <LuBrain className=" text-[#a22de5] size-7" />
-            </span>
-            <p className="  text-red-100 font-medium text-2xl">Brainly</p>
-          </div>
+          {open ? (
+            <div className="flex items-center justify-between">
+              <span className="mr-2 ml-1">
+                <FaGraduationCap className=" text-[#e2c6f2] size-7" />
+              </span>
+              <p className="  text-red-100 font-medium text-2xl">Brainly</p>
+            </div>
+          ) : null}
           {/* MENU ICON */}
           <div
             onClick={() => {
@@ -34,40 +46,59 @@ const SideBar = ({ setPage }: SideBarProps) => {
             }}
           >
             {open ? (
-              <TbLayoutSidebarLeftCollapse className="size-8 text-amber-100 cursor-e-resize" />
+              <TbLayoutSidebarLeftCollapse className="size-8 text-amber-100 cursor-pointer" />
             ) : (
-              <TbLayoutSidebarRightCollapse className="size-8 text-amber-100 cursor-e-resize" />
+              <TbLayoutSidebarRightCollapse className="size-8 text-amber-100 cursor-pointer" />
             )}
           </div>
         </div>
         <div className="h-auto  flex flex-col items-start ">
           <SideBarItem
+            open={open}
             logo={<IoDocumentsOutline className="size-6" />}
             text={"Documents"}
           />
-          <SideBarItem logo={<FaImages className="size-6" />} text={"Images"} />
           <SideBarItem
+            open={open}
+            logo={<FaImages className="size-6" />}
+            text={"Images"}
+          />
+          <SideBarItem
+            open={open}
             logo={<FiYoutube className="size-6" />}
             text={"Videos"}
           />
           <SideBarItem
+            open={open}
             logo={<IoLinkSharp className="size-6" />}
             text={"Links"}
           />
         </div>
       </div>
       <div
-        className="w-19/20 flex items-center
-        justify-center text-xl font-medium bg-[#656565] rounded-lg mb-2  hover:bg-[#d4d4d4]"
+        className={
+          open
+            ? "w-19/20 flex items-center justify-center text-xl font-medium bg-[#656565] rounded-lg mb-2  hover:bg-[#d4d4d4] cursor-pointer"
+            : "w-15/20 flex items-center justify-center text-xl font-medium bg-[#656565] rounded-full mb-2 p-2 hover:bg-[#d4d4d4] cursor-pointer text-[#fff7f7] hover:text-[#000000]"
+        }
       >
-        <span
-          className=" w-full flex items-center justify-center cursor-pointer py-3"
-          onClick={() => {
-            setPage((val) => !val);
-          }}
-        >
-          Account
-        </span>
+        {open ? (
+          <span
+            className=" w-full flex items-center justify-center cursor-pointer py-3"
+            onClick={() => {
+              setPage((val) => !val);
+            }}
+          >
+            Account
+          </span>
+        ) : (
+          <FaRegUser
+            className="size-6"
+            onClick={() => {
+              setPage((val) => !val);
+            }}
+          />
+        )}
       </div>
     </div>
   );
