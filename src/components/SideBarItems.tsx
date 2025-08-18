@@ -4,6 +4,8 @@ interface SideBarProps {
   text?: String;
   logo: ReactElement;
   open?: boolean;
+  onClick?: () => void;
+
 }
 
 const parentStyles = {
@@ -13,13 +15,22 @@ const parentStyles = {
 };
 
 const styles = {
-  open: "flex items-center justify-start w-auto ml-6 mr-16 ",
+  open: "flex items-center justify-start w-auto ml-6 mr-16",
   close: "flex items-center justify-center w-auto ",
 };
-export const SideBarItem = ({ text, logo, open }: SideBarProps) => {
+export const SideBarItem = ({ text, logo, open, onClick }: SideBarProps) => {
+  
   return (
-    <div className={open ? parentStyles.open : parentStyles.close}>
-      <div className={open ? styles.open : styles.close}>
+    <div
+      onClick={onClick}
+      className={` transition-all duration-200 ease-in-out ${open ? parentStyles.open : parentStyles.close}`
+      }
+    >
+      <div
+        className={` transition-all duration-200 ease-in-out ${
+          open ? styles.open : styles.close
+        }`}
+      >
         <span className={open ? "mr-3" : "mx-3"}>{logo}</span>
         {open ? <div className=" text-lg flex items-start">{text}</div> : null}
       </div>

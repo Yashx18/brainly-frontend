@@ -26,15 +26,14 @@ const defaultStyles =
 export const Button = ({variant, size, text, startIcon, stateUpdater, endIcon}: ButtonProps) => {
   return (
     // @ts-ignore
-    <div className="rounded-xl" onClick={() => stateUpdater(val => !val )}>
-      <p
+    <div className="rounded-xl" onClick={() => stateUpdater((val) => !val)}>
+      <div
         className={`${variantStyles[variant]} ${defaultStyles} ${sizeStyles[size]} `}
       >
-
         {startIcon}
-        {text}
+        <p className="ml-1">{text}</p>
         {endIcon}
-      </p>
+      </div>
     </div>
   );
 };

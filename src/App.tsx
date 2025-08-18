@@ -9,7 +9,8 @@ import AddContent from "./components/AddContent";
 import { PlusIcon } from "./icons/PlusIcon";
 import ShareBrain from "./components/ShareBrain";
 import useContent from "./hooks/useContent";
-import axios from "axios";
+import { ShareIcon } from "./icons/ShareIcon";
+// import axios from "axios";
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
   const [page, setPage] = useState(false);
   const [shareBrain, setShareBrain] = useState(false);
   const [addContent, setAddContent] = useState(false);
-  const contents = useContent()
+  const contents = useContent();
+  
   return (
     <div className="bg-white w-screen h-dvh flex  ">
       {page &&
@@ -41,13 +43,14 @@ function App() {
             variant="secondary"
             text="Share Brain"
             size="md"
-            startIcon={<PlusIcon size="md" />}
+            startIcon={<ShareIcon />}
           />
           <Button
             stateUpdater={setAddContent}
             variant="primary"
             text="Add content"
             size="md"
+            startIcon={<PlusIcon size="md" />}
           />
         </div>
         {/* This is the Cards Section. */}
@@ -55,10 +58,9 @@ function App() {
           {contents.map(({ title, link, type }) => {
             let src = "";
             if (type === "image" || type === "video") {
-               
-                 src =`http://localhost:3000${link}`
-          
+              src = `http://localhost:3000${link}`;
             }
+            
             return (
               <Card
                 key={title}

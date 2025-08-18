@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SideBarItem } from "./SideBarItems";
-import { FaImages } from "react-icons/fa";
+import { IoImageOutline } from "react-icons/io5";
 import { FiYoutube } from "react-icons/fi";
 import { IoDocumentsOutline } from "react-icons/io5";
 import { IoLinkSharp } from "react-icons/io5";
@@ -8,17 +8,28 @@ import { FaRegUser } from "react-icons/fa";
 import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
 import { TbLayoutSidebarRightCollapse } from "react-icons/tb";
 import { FaGraduationCap } from "react-icons/fa6";
+import { GoHome } from "react-icons/go";
+import useContent from "../hooks/useContent";
+
+
 
 const styles = {
-  open: "h-14/15 w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] rounded-tr-xl rounded-br-xl",
+  open: "h-14/15 w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] rounded-tr-xl rounded-br-xl transition-all duration-500 ease-in-out mr-1",
   close:
-    "h-14/15 w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] rounded-tr-xl rounded-br-xl",
+    "h-14/15 w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] rounded-tr-xl rounded-br-xl transition-all duration-500 ease-in-out mr-1",
 };
 const parentStyles = {
-  open: "flex items-center justify-between w-full py-3 border-b border-[#989898] px-1",
+  open: "flex items-center justify-between w-full py-3 border-b border-[#989898] px-1 ",
   close:
-    "flex items-center justify-center w-full py-3 border-b border-[#989898]",
+    "flex items-center justify-center w-full py-3 border-b border-[#989898] ",
 };
+const dataType = {
+  All: "all",
+  Video: "video",
+  Image: "image",
+  URL: "URL",
+  Text: "text",
+} as const;
 
 interface SideBarProps {
   setPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,10 +37,25 @@ interface SideBarProps {
 
 const SideBar = ({ setPage }: SideBarProps) => {
   const [open, setOpen] = useState(false);
+  const [DataType, setDataType] = useState<
+    (typeof dataType)[keyof typeof dataType]
+    >(dataType.All);
+  
+  useContent();
+  
+  
   return (
-    <div className={open ? styles.open : styles.close}>
+    <div
+      className={`transition-all duration-500 ease-in-out ${
+        open ? styles.open : styles.close
+      }`}
+    >
       <div className="w-full">
-        <div className={open ? parentStyles.open : parentStyles.close}>
+        <div
+          className={` transition-all duration-200 ease-in-out ${
+            open ? parentStyles.open : parentStyles.close
+          }`}
+        >
           {/* LOGO SECTION */}
           {open ? (
             <div className="flex items-center justify-between">
@@ -55,23 +81,43 @@ const SideBar = ({ setPage }: SideBarProps) => {
         <div className="h-auto  flex flex-col items-start ">
           <SideBarItem
             open={open}
+            logo={<GoHome className="size-6" />}
+            text={"Home"}
+            onClick={() => {
+              setDataType(dataType.All);
+            }}
+          />
+          <SideBarItem
+            open={open}
             logo={<IoDocumentsOutline className="size-6" />}
             text={"Documents"}
+            onClick={() => {
+              setDataType(dataType.Text);
+            }}
           />
           <SideBarItem
             open={open}
-            logo={<FaImages className="size-6" />}
+            logo={<IoImageOutline className="size-6 " />}
             text={"Images"}
+            onClick={() => {
+              setDataType(dataType.Image);
+            }}
           />
           <SideBarItem
             open={open}
-            logo={<FiYoutube className="size-6" />}
+            logo={<FiYoutube className="size-6 " />}
             text={"Videos"}
+            onClick={() => {
+              setDataType(dataType.Video);
+            }}
           />
           <SideBarItem
             open={open}
             logo={<IoLinkSharp className="size-6" />}
             text={"Links"}
+            onClick={() => {
+              setDataType(dataType.URL);
+            }}
           />
         </div>
       </div>

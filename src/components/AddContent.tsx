@@ -16,28 +16,27 @@ interface AddContentProps {
 }
 
 const AddContent = ({ setAddContent }: AddContentProps) => {
-  const linkRef = useRef<HTMLInputElement>(null);
+  const linkRef = useRef<any>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const [type, setType] = useState<
     (typeof ContentType)[keyof typeof ContentType]
   >(ContentType.Text);
-  
+
   async function addContent() {
     const title = titleRef.current?.value;
     const fileOrLink = linkRef.current?.files?.[0] || linkRef.current?.value;
 
     const formData = new FormData();
-    formData.append("title", title || "")
-    formData.append("type", type)
-    
+    formData.append("title", title || "");
+    formData.append("type", type);
+
     if (type == "image" || type == "video") {
       // @ts-ignore
-      formData.append("file", linkRef.current?.files?.[0])
+      formData.append("file", linkRef.current?.files?.[0]);
     } else {
       // @ts-ignore
       formData.append("link", fileOrLink);
     }
-
 
     try {
       const response = await axios.post(
@@ -89,17 +88,23 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
           </div>
           <div className="mb-3">
             <p>Content</p>
-            <input
-              ref={linkRef}
-              name="contentBar"
-              type={type == "image" || type == "video" ? "file" : "text"}
-              placeholder="Add content here !"
-              className={
-                type == "text" || type == "URL"
-                  ? "w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
-                  : " cursor-pointer border-2 border-[#696969] rounded-md w-full px-2 py-1"
-              }
-            />
+            {type == "image" || type == "video" ? (
+              <input
+                ref={linkRef}
+                name="contentBar"
+                type={type == "image" || type == "video" ? "file" : "textarea"}
+                placeholder="Add content here !"
+                className={
+                  "w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
+                }
+              />
+            ) : (
+              <textarea
+                ref={linkRef}
+                placeholder="Type here ..."
+                className=" rounded-md w-full px-1.5 py-1.5 border-2 border-[#696969]"
+              ></textarea>
+            )}
           </div>
           <div className="mb-3">
             {/* const contentTypes = ["image", "video", "audio", "URL", "text"]; // Extend as needed */}
