@@ -9,9 +9,7 @@ import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
 import { TbLayoutSidebarRightCollapse } from "react-icons/tb";
 import { FaGraduationCap } from "react-icons/fa6";
 import { GoHome } from "react-icons/go";
-import useContent from "../hooks/useContent";
-
-
+import { useContentStore } from "../store";
 
 const styles = {
   open: "h-14/15 w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] rounded-tr-xl rounded-br-xl transition-all duration-500 ease-in-out mr-1",
@@ -23,27 +21,23 @@ const parentStyles = {
   close:
     "flex items-center justify-center w-full py-3 border-b border-[#989898] ",
 };
-const dataType = {
-  All: "all",
-  Video: "video",
-  Image: "image",
-  URL: "URL",
-  Text: "text",
-} as const;
+// const dataType = {
+//   All: "all",
+//   Video: "video",
+//   Image: "image",
+//   URL: "URL",
+//   Text: "text",
+// } as const;
 
 interface SideBarProps {
   setPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+
 const SideBar = ({ setPage }: SideBarProps) => {
+  const { setFilter } = useContentStore();
   const [open, setOpen] = useState(false);
-  const [DataType, setDataType] = useState<
-    (typeof dataType)[keyof typeof dataType]
-    >(dataType.All);
-  { DataType };
-  useContent();
-  
-  
+
   return (
     <div
       className={`transition-all duration-500 ease-in-out ${
@@ -84,7 +78,7 @@ const SideBar = ({ setPage }: SideBarProps) => {
             logo={<GoHome className="size-6" />}
             text={"Home"}
             onClick={() => {
-              setDataType(dataType.All);
+              setFilter("all");
             }}
           />
           <SideBarItem
@@ -92,7 +86,7 @@ const SideBar = ({ setPage }: SideBarProps) => {
             logo={<IoDocumentsOutline className="size-6" />}
             text={"Documents"}
             onClick={() => {
-              setDataType(dataType.Text);
+              setFilter("text");
             }}
           />
           <SideBarItem
@@ -100,7 +94,7 @@ const SideBar = ({ setPage }: SideBarProps) => {
             logo={<IoImageOutline className="size-6 " />}
             text={"Images"}
             onClick={() => {
-              setDataType(dataType.Image);
+              setFilter("image");
             }}
           />
           <SideBarItem
@@ -108,7 +102,7 @@ const SideBar = ({ setPage }: SideBarProps) => {
             logo={<FiYoutube className="size-6 " />}
             text={"Videos"}
             onClick={() => {
-              setDataType(dataType.Video);
+              setFilter("video");
             }}
           />
           <SideBarItem
@@ -116,7 +110,7 @@ const SideBar = ({ setPage }: SideBarProps) => {
             logo={<IoLinkSharp className="size-6" />}
             text={"Links"}
             onClick={() => {
-              setDataType(dataType.URL);
+              setFilter("URL");
             }}
           />
         </div>

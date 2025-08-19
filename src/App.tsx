@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { Button } from "./components/Button";
 import { Card } from "./components/Card";
@@ -8,8 +8,10 @@ import SignUp from "./components/SignUp";
 import AddContent from "./components/AddContent";
 import { PlusIcon } from "./icons/PlusIcon";
 import ShareBrain from "./components/ShareBrain";
-import useContent from "./hooks/useContent";
+// import useContent from "./hooks/useContent";
 import { ShareIcon } from "./icons/ShareIcon";
+import { useContentStore } from "./store";
+// import { useContentStore } from "./store";
 // import axios from "axios";
 
 
@@ -19,7 +21,22 @@ function App() {
   const [page, setPage] = useState(false);
   const [shareBrain, setShareBrain] = useState(false);
   const [addContent, setAddContent] = useState(false);
-  const contents = useContent();
+  // const contents = useContent();
+   const { content, fetchContent } = useContentStore();
+
+  console.log(content);
+  
+   useEffect(() => {
+     fetchContent();
+   }, [fetchContent]);
+
+  useEffect(() => {
+    console.log("Updated content:", content);
+  }, [content]);
+  // @ts-ignore
+
+
+  
   
   return (
     <div className="bg-white w-screen h-dvh flex  ">
@@ -55,7 +72,7 @@ function App() {
         </div>
         {/* This is the Cards Section. */}
         <div className="Content w-full flex items-baseline justify-start flex-wrap">
-          {contents.map(({ title, link, type }) => {
+          {content.map(({ title, link, type }) => {
             let src = "";
             if (type === "image" || type === "video") {
               src = `http://localhost:3000${link}`;
@@ -64,6 +81,7 @@ function App() {
             return (
               <Card
                 key={title}
+                // @ts-ignore
                 type={type}
                 link={link == "image" ? src : link}
                 title={title}

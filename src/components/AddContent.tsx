@@ -4,6 +4,8 @@ import { IoMdClose } from "react-icons/io";
 import TypeOptions from "./TypeOptions";
 import { useState } from "react";
 
+import { useContentStore } from "../store";
+
 const ContentType = {
   Video: "video",
   Image: "image",
@@ -16,6 +18,7 @@ interface AddContentProps {
 }
 
 const AddContent = ({ setAddContent }: AddContentProps) => {
+  const { fetchContent } = useContentStore();
   const linkRef = useRef<any>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const [type, setType] = useState<
@@ -49,6 +52,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
 
       if (response.data.message) {
         console.log(response.data.message);
+        fetchContent();
         setAddContent((val) => !val);
       }
     } catch (error) {

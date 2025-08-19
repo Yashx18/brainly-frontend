@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 interface SignInProps {
   setFn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -7,6 +7,7 @@ interface SignInProps {
 }
 
 const SignIn = ({ setFn, setPage }: SignInProps) => {
+  const [signInMessage, setSignInMessage] = useState("");
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordeRef = useRef<HTMLInputElement>(null);
   async function signIn() {
@@ -25,8 +26,11 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
         }
       );
       if (response.data) {
-        console.log(response.data);
-        setPage((val) => !val);
+        const message = response.data.message;
+        setSignInMessage(message);
+        setTimeout(() => {
+          setPage((val) => !val);
+        }, 2000);
       } else {
         alert("User not found");
       }
@@ -35,6 +39,11 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
       console.error(error);
     }
   }
+
+  useEffect(() => {
+    console.log(signInMessage);
+    
+  },[signInMessage])
   return (
     <div
       className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center
@@ -77,6 +86,11 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
               Forgot Password ?
             </span>
           </div>
+          {signInMessage && (
+            <div className=" text-xl">
+              <p>{signInMessage}</p>
+            </div>
+          )}
           <div>
             <div
               className="w-full cursor-pointer bg-purple-500 text-white font-medium flex items-center justify-center py-2 rounded-md hover:bg-[#9f579c]"

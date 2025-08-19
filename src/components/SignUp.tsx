@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useRef , useState} from "react";
 import { IoMdClose } from "react-icons/io";
 interface SignUpProps {
   setFn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -7,6 +7,7 @@ interface SignUpProps {
 }
 
 const SignUp = ({ setFn, setPage }: SignUpProps) => {
+  const [signUpMessage, setSignUpMessage] = useState("");
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordeRef = useRef<HTMLInputElement>(null);
 
@@ -20,7 +21,12 @@ const SignUp = ({ setFn, setPage }: SignUpProps) => {
         password,
       });
       if (response.data) {
-        alert('Signed up successfully');
+        const message = response.data.message;
+        setSignUpMessage(message)
+        console.log('Signed up successfully');
+        setTimeout(() => {
+          setPage((val) => !val);
+        }, 2000);
       } else {
         alert('Sign up failed');
       }
@@ -72,6 +78,12 @@ const SignUp = ({ setFn, setPage }: SignUpProps) => {
               Forgot Password ?
             </span>
           </div>
+
+          {signUpMessage && (
+            <div className=" text-xl">
+              <p>{signUpMessage}</p>
+            </div>
+          )}
 
           <div>
             <button
