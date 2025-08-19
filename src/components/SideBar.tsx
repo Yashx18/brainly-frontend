@@ -40,7 +40,7 @@ const SideBar = ({ setPage }: SideBarProps) => {
   const [DataType, setDataType] = useState<
     (typeof dataType)[keyof typeof dataType]
     >(dataType.All);
-  
+  { DataType };
   useContent();
   
   
