@@ -62,7 +62,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
   }
   return (
     <div
-      className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center
+      className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center z-1
       "
     >
       <div className="bg-white rounded-md w-110 h-auto px-12 py-8 flex flex-col items-center justify-center">

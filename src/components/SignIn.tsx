@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import { useContentStore } from "../store";
+
 interface SignInProps {
   setFn: React.Dispatch<React.SetStateAction<boolean>>;
   setPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SignIn = ({ setFn, setPage }: SignInProps) => {
+  const { fetchContent } = useContentStore();
   const [signInMessage, setSignInMessage] = useState("");
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordeRef = useRef<HTMLInputElement>(null);
@@ -31,6 +34,7 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
         setTimeout(() => {
           setPage((val) => !val);
         }, 2000);
+        fetchContent();
       } else {
         alert("User not found");
       }
@@ -46,7 +50,7 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
   },[signInMessage])
   return (
     <div
-      className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center
+      className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center z-1
       "
     >
       <div className="bg-white rounded-md w-110 h-auto px-12 py-8 flex flex-col items-center justify-center">

@@ -18,6 +18,8 @@ interface ContentStore {
   addContent: (item: ContentItem) => void;
 }
 
+
+
 export const useContentStore = create<ContentStore>((set, get) => ({
   content: [],
   filter: "",
@@ -55,4 +57,14 @@ export const useContentStore = create<ContentStore>((set, get) => ({
     set((state) => ({
       content: [...state.content, item],
     })),
+}));
+
+interface CardPopUp {
+  open: boolean,
+  setOpen: () =>void
+}
+
+export const useCardPopUp = create<CardPopUp>((set) => ({
+  open: false,
+  setOpen: () => set((state) => ({open: !state.open}))
 }));

@@ -11,7 +11,7 @@ interface SideBarProps {
 const parentStyles = {
   open: "flex items-center justify-start w-full cursor-pointer hover:bg-[#ababab] hover:text-[#212121] py-2 text-[#cdc7bd]",
   close:
-    "flex items-center justify-center w-full cursor-pointer hover:bg-[#ababab] hover:text-[#212121] py-2 text-[#cdc7bd]",
+    "flex items-center justify-center w-full cursor-pointer hover:bg-[#ababab] hover:text-[#212121] py-2 text-[#212121]",
 };
 
 const styles = {

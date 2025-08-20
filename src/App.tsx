@@ -8,12 +8,10 @@ import SignUp from "./components/SignUp";
 import AddContent from "./components/AddContent";
 import { PlusIcon } from "./icons/PlusIcon";
 import ShareBrain from "./components/ShareBrain";
-// import useContent from "./hooks/useContent";
 import { ShareIcon } from "./icons/ShareIcon";
 import { useContentStore } from "./store";
-// import { useContentStore } from "./store";
-// import axios from "axios";
-
+// import { CardPopUp } from "./components/CardPopUp";
+// import { useCardPopUp } from "./store";
 
 function App() {
   // @ts-ignore
@@ -21,25 +19,25 @@ function App() {
   const [page, setPage] = useState(false);
   const [shareBrain, setShareBrain] = useState(false);
   const [addContent, setAddContent] = useState(false);
-  // const contents = useContent();
-   const { content, fetchContent } = useContentStore();
-
-  console.log(content);
-  
-   useEffect(() => {
-     fetchContent();
-   }, [fetchContent]);
+  const { content, fetchContent } = useContentStore();
+  // const { open } = useCardPopUp();
 
   useEffect(() => {
-    console.log("Updated content:", content);
-  }, [content]);
+    fetchContent();
+  }, [fetchContent]);
+
   // @ts-ignore
 
-
-  
-  
   return (
     <div className="bg-white w-screen h-dvh flex  ">
+       {/* {open && (
+              <CardPopUp
+                // title={title}
+                // link={link}
+                // // @ts-ignore
+                // type={type}
+              />
+            )} */}
       {page &&
         (haveAccount ? (
           <SignUp setFn={setHaveAccount} setPage={setPage} />
@@ -52,7 +50,7 @@ function App() {
       <div className="flex items-center justify-center h-full">
         <SideBar setPage={setPage} />
       </div>
-      <div className="w-full flex flex-col bg-[#eaeaea]">
+      <div className="w-full flex h-auto border  flex-col bg-[#eaeaea]">
         {/* This is the navbar Section */}
         <div className="flex items-center justify-end w-full border-b border-[#a3a3a3] bg-white">
           <Button
@@ -71,21 +69,23 @@ function App() {
           />
         </div>
         {/* This is the Cards Section. */}
-        <div className="Content w-full flex items-baseline justify-start flex-wrap">
+        <div className="Content w-full flex items-baseline justify-start flex-wrap bg-red-300 overflow-auto">
           {content.map(({ title, link, type }) => {
             let src = "";
             if (type === "image" || type === "video") {
               src = `http://localhost:3000${link}`;
             }
-            
+
             return (
-              <Card
-                key={title}
-                // @ts-ignore
-                type={type}
-                link={link == "image" ? src : link}
-                title={title}
-              />
+              <>
+                <Card
+                  key={title}
+                  // @ts-ignore
+                  type={type}
+                  link={link == "image" ? src : link}
+                  title={title}
+                />
+              </>
             );
           })}
         </div>
