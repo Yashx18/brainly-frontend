@@ -10,17 +10,19 @@ interface CardPopUpProps {
   title?: String;
   link?: String;
   type?: "text" | "URL" | "image" | "video";
+  onClose: () => void;
 }
 
-export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
+export const CardPopUp = ({ title, link, type, onClose }: CardPopUpProps) => {
   const { setOpen } = useCardPopUp();
   return (
     <div
       onClick={() => {
+        onClose;
         setOpen();
         console.log(title, link, type);
       }}
-      className="absolute w-full bg-[#ffffff] h-full flex items-center justify-center"
+      className="absolute w-full bg-[#ffffff10] h-full flex items-center justify-center"
     >
       <div
         className="border border-neutral-500 rounded-md bg-amber-50 flex flex-col items-start justify-baseline shadow-md 

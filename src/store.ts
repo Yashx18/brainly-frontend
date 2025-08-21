@@ -68,3 +68,25 @@ export const useCardPopUp = create<CardPopUp>((set) => ({
   open: false,
   setOpen: () => set((state) => ({open: !state.open}))
 }));
+
+
+// in store.ts
+interface CardData {
+  title: string;
+  link: string;
+  type: "text" | "URL" | "image" | "video";
+}
+
+interface CardPopUpState {
+  open: boolean;
+  selectedCard: CardData | null;
+  openPopUp: (card: CardData) => void;
+  closePopUp: () => void;
+}
+
+export const useCardPopUpData = create<CardPopUpState>((set) => ({
+  open: false,
+  selectedCard: null,
+  openPopUp: (card) => set({ open: true, selectedCard: card }),
+  closePopUp: () => set({ open: false, selectedCard: null }),
+}));

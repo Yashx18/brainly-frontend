@@ -6,14 +6,17 @@ interface ShareBrainProps {
 }
 
 const ShareBrain = ({ setPage }: ShareBrainProps) => {
-  let result;
-  const [brainState, setBrainState] = useState(true);
+  const [link, setLink] = useState("");
+  console.log(link);
+
+  const [toggle, setToggle] = useState(true);
   async function shareBrain() {
     try {
       const response = await axios.post(
         "http://localhost:3000/api/vi/brain/share",
         {
-          share: brainState,
+          share: toggle,
+          
         },
         {
           withCredentials: true,
@@ -21,39 +24,43 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
       );
 
       if (response.data) {
-        console.log(response.data.hash);
-        result = response.data.hash;
-        setBrainState(val => !val);
+        setLink(response.data.hash);
       }
     } catch (error) {
       console.log("Error occured");
       console.error(error);
     }
+  
+  
   }
 
   return (
+    // bg-[]
+
     <div
-      className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center
-      "
+      className="bg-[#383838] rounded-md w-110 h-50  flex flex-col items-center justify-start   border-2 border-[#44444483] absolute z-1 right-70 top-11"
     >
-      <div
-        className="bg-white rounded-md w-110 h-auto px-12 py-8 flex flex-col items-center justify-center"
-        onClick={shareBrain}
-      >
-        <div
-          className="w-full flex items-center justify-between mb-4">
-          <span className="text-2xl font-medium ">Share Brain</span>
-          <IoMdClose
-            className="size-6 cursor-pointer hover:text-[#5c5c5c]"
-            onClick={() => {
-              setPage((val) => !val);
-            }}
-          />
+      <div className="w-full flex items-center justify-between border-b border-[#757575] px-4 py-2">
+        <span className="text-2xl font-medium text-white ">Share Brain</span>
+        <IoMdClose
+          className="size-6 cursor-pointer text-white hover:text-[#c5c5c5]"
+          onClick={() => {
+            setPage((val) => !val);
+          }}
+        />
+      </div>
+      <div className="w-full px-4 py-2 text-white">
+        <div className="flex items-center justify-between w-full h-full">
+          <span className="text-lg font-xl">Enable Share Brain : </span>
+          <input type="checkbox" className="cursor-pointer w-4 h-4 rounded-xl"  onChange={() => {
+            setToggle(val => !val);
+            shareBrain();
+            console.log(toggle);
+            
+          }}/>
         </div>
-        <div className="w-full">
-          <span className="text-lg font-">Link is mentioned below :</span>
-          <p>`http:// host:3000${result}`</p>
-        </div>
+        <span className="text-md font-">Link is mentioned below :</span>
+        <p className="bg-[#212121] px-2 py-1 rounded-lg ">http://localhost:3000${link}</p>
       </div>
     </div>
   );

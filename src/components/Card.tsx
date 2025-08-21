@@ -4,8 +4,8 @@ import { TextIcon } from "../icons/TextIcon";
 import { FiYoutube } from "react-icons/fi";
 import { IoLinkSharp } from "react-icons/io5";
 import { FaImages } from "react-icons/fa";
-import { CardPopUp } from "./CardPopUp";
-import { useCardPopUp } from "../store";
+
+import { useCardPopUpData } from "../store";
 
 interface Cardprops {
   title: string;
@@ -14,14 +14,15 @@ interface Cardprops {
 }
 
 export const Card = ({ title, link, type }: Cardprops) => {
-  const { open, setOpen } = useCardPopUp();
+  const { openPopUp, selectedCard } = useCardPopUpData();
   return (
     <>
-      {open && <CardPopUp title={title} link={link} type={type} />}
       <div
         onClick={() => {
-          setOpen();
-          console.log(title, link, type);
+          openPopUp({ title, link, type });
+          // console.log(title, link, type);
+          console.log(selectedCard);
+          
         }}
         className="border border-neutral-500 rounded-md bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
      w-full max-w-80 p-2 mt-1 ml-1 cursor-pointer"

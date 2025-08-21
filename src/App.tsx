@@ -10,11 +10,12 @@ import { PlusIcon } from "./icons/PlusIcon";
 import ShareBrain from "./components/ShareBrain";
 import { ShareIcon } from "./icons/ShareIcon";
 import { useContentStore } from "./store";
-// import { CardPopUp } from "./components/CardPopUp";
-// import { useCardPopUp } from "./store";
+import { CardPopUp } from "./components/CardPopUp";
+import { useCardPopUpData } from "./store";
 
 function App() {
   // @ts-ignore
+const { open, selectedCard, closePopUp } = useCardPopUpData();
   const [haveAccount, setHaveAccount] = useState(true);
   const [page, setPage] = useState(false);
   const [shareBrain, setShareBrain] = useState(false);
@@ -29,7 +30,7 @@ function App() {
   // @ts-ignore
 
   return (
-    <div className="bg-white w-screen h-dvh flex  ">
+    <div className="bg-white w-screen h-dvh flex relative ">
        {/* {open && (
               <CardPopUp
                 // title={title}
@@ -69,7 +70,7 @@ function App() {
           />
         </div>
         {/* This is the Cards Section. */}
-        <div className="Content w-full flex items-baseline justify-start flex-wrap bg-red-300 overflow-auto">
+        <div className="Content w-full flex items-baseline justify-start flex-wrap bg-red-300 overflow-y-auto">
           {content.map(({ title, link, type }) => {
             let src = "";
             if (type === "image" || type === "video") {
@@ -78,6 +79,14 @@ function App() {
 
             return (
               <>
+                {open && selectedCard && (
+                  <CardPopUp
+                    title={selectedCard.title}
+                    link={selectedCard.link}
+                    type={selectedCard.type}
+                    onClose={closePopUp}
+                  />
+                )}
                 <Card
                   key={title}
                   // @ts-ignore
