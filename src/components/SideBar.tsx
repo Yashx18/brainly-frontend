@@ -29,12 +29,7 @@ const parentStyles = {
 //   Text: "text",
 // } as const;
 
-interface SideBarProps {
-  setPage: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-
-const SideBar = ({ setPage }: SideBarProps) => {
+const SideBar = () => {
   const { setFilter } = useContentStore();
   const [open, setOpen] = useState(false);
 
@@ -123,21 +118,11 @@ const SideBar = ({ setPage }: SideBarProps) => {
         }
       >
         {open ? (
-          <span
-            className=" w-full flex items-center justify-center cursor-pointer py-3"
-            onClick={() => {
-              setPage((val) => !val);
-            }}
-          >
+          <span className=" w-full flex items-center justify-center cursor-pointer py-3">
             Account
           </span>
         ) : (
-          <FaRegUser
-            className="size-6"
-            onClick={() => {
-              setPage((val) => !val);
-            }}
-          />
+          <FaRegUser className="size-6" />
         )}
       </div>
     </div>

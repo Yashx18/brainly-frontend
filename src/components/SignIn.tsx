@@ -3,12 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useContentStore } from "../store";
 
-interface SignInProps {
-  setFn: React.Dispatch<React.SetStateAction<boolean>>;
-  setPage: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const SignIn = ({ setFn, setPage }: SignInProps) => {
+const SignIn = () => {
   const { fetchContent } = useContentStore();
   const [signInMessage, setSignInMessage] = useState("");
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -32,9 +27,8 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
         const message = response.data.message;
         setSignInMessage(message);
         setTimeout(() => {
-          setPage((val) => !val);
+          fetchContent();
         }, 2000);
-        fetchContent();
       } else {
         alert("User not found");
       }
@@ -58,9 +52,7 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
           <span className="text-2xl font-medium ">Sign In</span>
           <IoMdClose
             className="size-6 cursor-pointer hover:text-[#5c5c5c]"
-            onClick={() => {
-              setPage((val) => !val);
-            }}
+            
           />
         </div>
         <form
@@ -109,11 +101,6 @@ const SignIn = ({ setFn, setPage }: SignInProps) => {
               Don't have an account?{" "}
               <span
                 className="underline text-[#5a54c7] cursor-pointer"
-                onClick={() => {
-                  {
-                    setFn((val) => !val);
-                  }
-                }}
               >
                 Sign Up
               </span>

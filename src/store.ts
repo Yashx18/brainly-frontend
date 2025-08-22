@@ -59,17 +59,6 @@ export const useContentStore = create<ContentStore>((set, get) => ({
     })),
 }));
 
-interface CardPopUp {
-  open: boolean,
-  setOpen: () =>void
-}
-
-export const useCardPopUp = create<CardPopUp>((set) => ({
-  open: false,
-  setOpen: () => set((state) => ({open: !state.open}))
-}));
-
-
 // in store.ts
 interface CardData {
   title: string;

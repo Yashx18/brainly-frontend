@@ -5,7 +5,8 @@ import { FiYoutube } from "react-icons/fi";
 import { IoLinkSharp } from "react-icons/io5";
 import { FaImages } from "react-icons/fa";
 
-import { useCardPopUpData } from "../store";
+import { useCardPopUpData, useContentStore } from "../store";
+import axios from "axios";
 
 interface Cardprops {
   title: string;
@@ -15,14 +16,37 @@ interface Cardprops {
 
 export const Card = ({ title, link, type }: Cardprops) => {
   const { openPopUp, selectedCard } = useCardPopUpData();
+  const { fetchContent } = useContentStore();
+
+  async function deleteCard() {
+      try {
+        const response = await axios.delete(
+          "http://localhost:3000/api/vi/content",
+          {
+            data: { title, link, type },
+            withCredentials: true,
+          },
+        );
+        if (response.data.message) {
+          console.log(response.data.message);
+          fetchContent();
+        }
+        
+      } catch (error) {
+        console.log(error);
+        
+    }
+    console.log(title, link, type);
+    
+    }
+
   return (
     <>
       <div
         onClick={() => {
-          openPopUp({ title, link, type });
+          
           // console.log(title, link, type);
           console.log(selectedCard);
-          
         }}
         className="border border-neutral-500 rounded-md bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
      w-full max-w-80 p-2 mt-1 ml-1 cursor-pointer"
@@ -41,13 +65,15 @@ export const Card = ({ title, link, type }: Cardprops) => {
             <span className="pr-2">
               <ShareIcon />
             </span>
-            <span>
+            <span onClick={deleteCard}>
               <DeleteIcon />
             </span>
           </div>
         </div>
         {/* Card Content */}
-        <div>
+        <div onClick={() => {
+          openPopUp({ title, link, type });
+        }}>
           {type == "URL" ? (
             <a
               href={link}

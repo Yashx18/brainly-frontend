@@ -1,12 +1,9 @@
 import axios from "axios";
 import { useRef , useState} from "react";
 import { IoMdClose } from "react-icons/io";
-interface SignUpProps {
-  setFn: React.Dispatch<React.SetStateAction<boolean>>;
-  setPage: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-const SignUp = ({ setFn, setPage }: SignUpProps) => {
+
+const SignUp = () => {
   const [signUpMessage, setSignUpMessage] = useState("");
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordeRef = useRef<HTMLInputElement>(null);
@@ -24,9 +21,6 @@ const SignUp = ({ setFn, setPage }: SignUpProps) => {
         const message = response.data.message;
         setSignUpMessage(message)
         console.log('Signed up successfully');
-        setTimeout(() => {
-          setPage((val) => !val);
-        }, 2000);
       } else {
         alert('Sign up failed');
       }
@@ -46,9 +40,6 @@ const SignUp = ({ setFn, setPage }: SignUpProps) => {
           <span className="text-2xl font-medium ">Sign Up</span>
           <IoMdClose
             className="size-6 cursor-pointer hover:text-[#5c5c5c]"
-            onClick={() => {
-              setPage((val) => !val);
-            }}
           />
         </div>
         <form
@@ -99,9 +90,6 @@ const SignUp = ({ setFn, setPage }: SignUpProps) => {
               Already have an Account?{" "}
               <span
                 className="underline text-[#5a54c7] cursor-pointer"
-                onClick={() => {
-                  setFn((val) => !val);
-                }}
               >
                 Sign In
               </span>

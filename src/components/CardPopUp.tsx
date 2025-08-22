@@ -4,7 +4,7 @@ import { TextIcon } from "../icons/TextIcon";
 import { FiYoutube } from "react-icons/fi";
 import { IoLinkSharp } from "react-icons/io5";
 import { FaImages } from "react-icons/fa";
-import { useCardPopUp } from "../store";
+import { useCardPopUpData } from "../store";
 
 interface CardPopUpProps {
   title?: String;
@@ -14,15 +14,17 @@ interface CardPopUpProps {
 }
 
 export const CardPopUp = ({ title, link, type, onClose }: CardPopUpProps) => {
-  const { setOpen } = useCardPopUp();
+  const { closePopUp } = useCardPopUpData();
   return (
     <div
       onClick={() => {
         onClose;
-        setOpen();
+        closePopUp();
         console.log(title, link, type);
       }}
-      className="absolute w-full bg-[#ffffff10] h-full flex items-center justify-center"
+      // bg-[#ffffff10]
+      className="absolute w-full bg-[#222222] h-
+       flex items-center justify-center z-1"
     >
       <div
         className="border border-neutral-500 rounded-md bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
