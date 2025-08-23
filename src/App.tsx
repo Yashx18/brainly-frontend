@@ -1,9 +1,9 @@
 import "./App.css";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import ShareBrainPage from "./pages/share";
+import ShareBrainPage from "./pages/ShareBrainPage";
 
 function App() {
   return (

@@ -1,10 +1,11 @@
-import { DeleteIcon } from "../icons/DeleteIcon";
-import { ShareIcon } from "../icons/ShareIcon";
 import { TextIcon } from "../icons/TextIcon";
 import { FiYoutube } from "react-icons/fi";
 import { IoLinkSharp } from "react-icons/io5";
 import { FaImages } from "react-icons/fa";
 import { useCardPopUpData } from "../store";
+import { FaRegEdit } from "react-icons/fa";
+import { useState } from "react";
+import TypeOptions from "./TypeOptions";
 
 interface CardPopUpProps {
   title?: String;
@@ -13,8 +14,22 @@ interface CardPopUpProps {
   onClose: () => void;
 }
 
+
+const ContentType = {
+  Video: "video",
+  Image: "image",
+  URL: "URL",
+  Text: "text",
+} as const;
+
+
 export const CardPopUp = ({ title, link, type, onClose }: CardPopUpProps) => {
   const { closePopUp } = useCardPopUpData();
+    const [dataType, setDataType] = useState<
+      (typeof ContentType)[keyof typeof ContentType]
+      >(ContentType.Text);
+  console.log(dataType);
+  
   return (
     <div
       onClick={() => {
@@ -40,13 +55,8 @@ export const CardPopUp = ({ title, link, type, onClose }: CardPopUpProps) => {
             </span>
             <h4 className="text-md font-medium">{title}</h4>
           </div>
-          <div className="flex items-center justify-between mt-1">
-            <span className="pr-2">
-              <ShareIcon />
-            </span>
-            <span>
-              <DeleteIcon />
-            </span>
+          <div className="flex items-center justify-center ">
+            <FaRegEdit className="size-5" />
           </div>
         </div>
         {type == "URL" ? (
@@ -77,6 +87,40 @@ export const CardPopUp = ({ title, link, type, onClose }: CardPopUpProps) => {
             <p className="text-md w-full">{link}</p>
           </div>
         ) : null}
+        <div className="mb-3">
+          {/* const contentTypes = ["image", "video", "audio", "URL", "text"]; // Extend as needed */}
+          <p>Type</p>
+          <div className=" w-full flex items-start justify-start flex-wrap">
+            <TypeOptions
+              text="Text"
+              variant={type === ContentType.Text ? "primary" : "secondary"}
+              onClick={() => {
+                setDataType(ContentType.Text);
+              }}
+            />
+            <TypeOptions
+              text="Video"
+              variant={type === ContentType.Video ? "primary" : "secondary"}
+              onClick={() => {
+                setDataType(ContentType.Video);
+              }}
+            />
+            <TypeOptions
+              text="Image"
+              variant={type === ContentType.Image ? "primary" : "secondary"}
+              onClick={() => {
+                setDataType(ContentType.Image);
+              }}
+            />
+            <TypeOptions
+              text="URL"
+              variant={type === ContentType.URL ? "primary" : "secondary"}
+              onClick={() => {
+                setDataType(ContentType.URL);
+              }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

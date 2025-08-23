@@ -59,9 +59,9 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
           }}/>
         </div>
         <span className="text-md font-">Link is mentioned below :</span>
-        <p className="bg-[#212121] px-2 py-1 rounded-lg ">
+        <a href={ `${link}`} className="bg-[#212121] px-2 py-1 rounded-lg text-blue-600" target="_blank">
           {link}
-        </p>
+        </a>
       </div>
     </div>
   );

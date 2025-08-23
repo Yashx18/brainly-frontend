@@ -12,9 +12,9 @@ import { GoHome } from "react-icons/go";
 import { useContentStore } from "../store";
 
 const styles = {
-  open: "h-14/15 w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] rounded-tr-xl rounded-br-xl transition-all duration-500 ease-in-out ",
+  open: "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] transition-all duration-500 ease-in-out ",
   close:
-    "h-14/15 w-full max-w-54   flex flex-col items-center justify-between bg-[#ffffff] rounded-tr-xl rounded-br-xl transition-all duration-500 ease-in-out  border border-[#212121]",
+    "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out  border-r border-[#212121] ",
 };
 const parentStyles = {
   open: "flex items-center justify-between w-full py-3 border-b border-[#989898] px-1 ",
