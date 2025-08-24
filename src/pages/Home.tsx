@@ -33,7 +33,7 @@ const Home = () => {
       <div className="flex items-center justify-center h-full">
         <SideBar />
       </div>
-      <div className="w-screen flex h-screen border  flex-col bg-[#eaeaea]">
+      <div className="w-screen flex h-screen flex-col bg-[#eaeaea]">
         {/* This is the navbar Section */}
         <div className="flex items-center justify-end border-b border-[#a3a3a3] bg-white">
           <Button
@@ -52,7 +52,7 @@ const Home = () => {
           />
         </div>
         {/* This is the Cards Section. */}
-        <div className="Content w-full flex items-baseline justify-start flex-wrap overflow-y-auto">
+        <div className="Content w-full h-full flex items-baseline justify-start flex-wrap overflow-y-auto relative">
           {content.map(({ title, link, type }) => {
             let src = "";
             if (type === "image" || type === "video") {

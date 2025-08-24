@@ -73,7 +73,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
         {/* Card Content */}
         <div onClick={() => {
           openPopUp({ title, link, type });
-        }}>
+        }} className="w-full">
           {type == "URL" ? (
             <a
               href={link}

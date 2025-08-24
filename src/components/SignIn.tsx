@@ -2,12 +2,18 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useContentStore } from "../store";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const { fetchContent } = useContentStore();
   const [signInMessage, setSignInMessage] = useState("");
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordeRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+  const goToHome = () => {
+    navigate("/home")
+  }
+
   async function signIn() {
     const username = usernameRef.current?.value;
     const password = passwordeRef.current?.value;
@@ -26,6 +32,7 @@ const SignIn = () => {
       if (response.data) {
         const message = response.data.message;
         setSignInMessage(message);
+        goToHome();
         setTimeout(() => {
           fetchContent();
         }, 2000);

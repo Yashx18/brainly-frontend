@@ -4,16 +4,20 @@ import { IoLinkSharp } from "react-icons/io5";
 import { FaImages } from "react-icons/fa";
 import { useCardPopUpData } from "../store";
 import { FaRegEdit } from "react-icons/fa";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import TypeOptions from "./TypeOptions";
+import { IoMdClose } from "react-icons/io";
+import { useEditStore } from "../store";
+import { useIdStore } from "../store";
+import axios from "axios";
+import { useContentStore } from "../store";
 
 interface CardPopUpProps {
-  title?: String;
-  link?: String;
+  title?: string;
+  link?: string;
   type?: "text" | "URL" | "image" | "video";
-  onClose: () => void;
+  onClose?: () => void;
 }
-
 
 const ContentType = {
   Video: "video",
@@ -22,105 +26,197 @@ const ContentType = {
   Text: "text",
 } as const;
 
-
-export const CardPopUp = ({ title, link, type, onClose }: CardPopUpProps) => {
+export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
   const { closePopUp } = useCardPopUpData();
-    const [dataType, setDataType] = useState<
-      (typeof ContentType)[keyof typeof ContentType]
-      >(ContentType.Text);
-  console.log(dataType);
-  
+  const { edit, toggleEdit } = useEditStore();
+  const { id, getId } = useIdStore();
+  const { fetchContent } = useContentStore();
+  const newTitleRef = useRef<HTMLInputElement>(null);
+  const newLinkRef = useRef<HTMLInputElement>(null);
+  const [dataType, setDataType] = useState<
+    (typeof ContentType)[keyof typeof ContentType]
+  >(ContentType.Text);
+  // console.log(id);
+
+  async function updateContent() {
+    const newTitle = newTitleRef.current?.value;
+    const newLink = newLinkRef.current?.value;
+    
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/vi/content/${id}`,
+        {
+          title: newTitle,
+          link: newLink,
+          type: dataType,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.data.message == "Content updated successfully") {
+        setTimeout(() => {
+          closePopUp();
+          fetchContent();
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div
       onClick={() => {
-        onClose;
-        closePopUp();
+        // onClose();
         console.log(title, link, type);
       }}
       // bg-[#ffffff10]
-      className="absolute w-full bg-[#222222] h-
+      className="absolute w-full h-full bg-[#1b1b1b1e] h-
        flex items-center justify-center z-1"
     >
       <div
         className="border border-neutral-500 rounded-md bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
                  w-full max-w-80 p-2 mr-1 mt-1 "
       >
-        <div className="top flex  items-start justify-between w-full bg-[#eaeaea] p-1.5 rounded-lg mb-2">
-          <div className="flex items-start justify-between">
-            <span className="pr-2 mt-1">
-              {type == "text" ? <TextIcon /> : null}
-              {type == "image" ? <FaImages /> : null}
-              {type == "video" ? <FiYoutube /> : null}
-              {type == "URL" ? <IoLinkSharp /> : null}
-            </span>
-            <h4 className="text-md font-medium">{title}</h4>
+        <div className="top flex  items-center justify-between w-full bg-[#eaeaea] rounded-lg mb-2">
+          <div className="flex items-start justify-between w-full">
+            <div className="flex items-center justify-start w-9/10">
+              {!edit ? (
+                <span className="ml-1 m r-2">
+                  {type == "text" ? <TextIcon /> : null}
+                  {type == "image" ? <FaImages /> : null}
+                  {type == "video" ? <FiYoutube /> : null}
+                  {type == "URL" ? <IoLinkSharp /> : null}
+                </span>
+              ) : null}
+
+              {/* Heading / Input */}
+              {edit ? (
+                <input
+                  type="text"
+                  ref={newTitleRef}
+                  placeholder={title}
+                  className="p-1.5 border border-[#2121213f] w-full rounded-lg bg-[#fffbeb]"
+                />
+              ) : (
+                <h4 className="text-md font-medium py-2">{title}</h4>
+              )}
+            </div>
           </div>
           <div className="flex items-center justify-center ">
-            <FaRegEdit className="size-5" />
+            <span className="px-0.5">
+              <FaRegEdit
+                className="size-5 cursor-pointer"
+                onClick={() => {
+                  toggleEdit();
+                  // @ts-ignore
+                  getId(title, link, type);
+                  console.log(id);
+
+                  console.log("Edit option clicked");
+                }}
+              />
+            </span>
+            <span
+              className="px-0.5 cursor-pointer"
+              onClick={() => {
+                closePopUp();
+              }}
+            >
+              <IoMdClose className="size-6" />
+            </span>
           </div>
         </div>
-        {type == "URL" ? (
-          <a
-            // @ts-ignore
-            href={link}
-            target="_blank"
-            className="text-[#3a4cf1] font-medium"
-          >
-            {link}
-          </a>
-        ) : null}
-        {type == "image" ? (
-          <img
-            src={`http://localhost:3000${link}`}
-            // @ts-ignore
-            alt={title}
-            className="rounded-lg"
+        {!edit ? (
+          <div className="w-full">
+            {type == "URL" ? (
+              <a
+                href={link}
+                target="_blank"
+                className="text-[#3a4cf1] font-medium"
+              >
+                {link}
+              </a>
+            ) : null}
+            {type == "image" ? (
+              <img
+                src={`http://localhost:3000${link}`}
+                alt={title}
+                className="rounded-lg"
+              />
+            ) : null}
+            {type == "video" ? (
+              <video className="w-screen h-auto rounded-lg" controls>
+                <source src={`http://localhost:3000${link}`} type="video/mp4" />
+              </video>
+            ) : null}
+            {type == "text" ? (
+              <div className="bg-[#eaeaea] py-1 px-2 w-full h-auto rounded-lg">
+                <p className="text-md w-full">{link}</p>
+              </div>
+            ) : null}
+          </div>
+        ) : (
+          <input
+            type={type == "image" || type == "video" ? "file" : "text"}
+            placeholder={link}
+            ref={newLinkRef}
+            className="p-1.5 border border-[#2121213f] w-full rounded-lg"
           />
-        ) : null}
-        {type == "video" ? (
-          <video className="w-screen h-auto rounded-lg" controls>
-            <source src={`http://localhost:3000${link}`} type="video/mp4" />
-          </video>
-        ) : null}
-        {type == "text" ? (
-          <div className="bg-[#eaeaea] py-1 px-2 w-full h-auto rounded-lg">
-            <p className="text-md w-full">{link}</p>
+        )}
+
+        {edit && (
+          <div className="mb-3">
+            {/* const contentTypes = ["image", "video", "audio", "URL", "text"]; // Extend as needed */}
+            {/* Type options */}
+            <p className="text-lg mb-1 font-medium">Type</p>
+            <div className=" w-full flex items-start justify-start flex-wrap">
+              <TypeOptions
+                text="Text"
+                variant={
+                  dataType === ContentType.Text ? "primary" : "secondary"
+                }
+                onClick={() => {
+                  setDataType(ContentType.Text);
+                }}
+              />
+              <TypeOptions
+                text="Video"
+                variant={
+                  dataType === ContentType.Video ? "primary" : "secondary"
+                }
+                onClick={() => {
+                  setDataType(ContentType.Video);
+                }}
+              />
+              <TypeOptions
+                text="Image"
+                variant={
+                  dataType === ContentType.Image ? "primary" : "secondary"
+                }
+                onClick={() => {
+                  setDataType(ContentType.Image);
+                }}
+              />
+              <TypeOptions
+                text="URL"
+                variant={dataType === ContentType.URL ? "primary" : "secondary"}
+                onClick={() => {
+                  setDataType(ContentType.URL);
+                }}
+              />
+            </div>
           </div>
-        ) : null}
-        <div className="mb-3">
-          {/* const contentTypes = ["image", "video", "audio", "URL", "text"]; // Extend as needed */}
-          <p>Type</p>
-          <div className=" w-full flex items-start justify-start flex-wrap">
-            <TypeOptions
-              text="Text"
-              variant={type === ContentType.Text ? "primary" : "secondary"}
-              onClick={() => {
-                setDataType(ContentType.Text);
-              }}
-            />
-            <TypeOptions
-              text="Video"
-              variant={type === ContentType.Video ? "primary" : "secondary"}
-              onClick={() => {
-                setDataType(ContentType.Video);
-              }}
-            />
-            <TypeOptions
-              text="Image"
-              variant={type === ContentType.Image ? "primary" : "secondary"}
-              onClick={() => {
-                setDataType(ContentType.Image);
-              }}
-            />
-            <TypeOptions
-              text="URL"
-              variant={type === ContentType.URL ? "primary" : "secondary"}
-              onClick={() => {
-                setDataType(ContentType.URL);
-              }}
-            />
+        )}
+        {edit && (
+          <div
+            className="bg-[#9f579c] font-semibold text-white w-full flex items-center justify-center py-2 rounded-lg cursor-pointer"
+            onClick={updateContent}
+          >
+            Update
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -79,3 +79,50 @@ export const useCardPopUpData = create<CardPopUpState>((set) => ({
   openPopUp: (card) => set({ open: true, selectedCard: card }),
   closePopUp: () => set({ open: false, selectedCard: null }),
 }));
+
+interface EditState {
+  edit: boolean;
+  setEdit: (value: boolean) => void;
+  toggleEdit: () => void;
+}
+
+export const useEditStore = create<EditState>((set) => ({
+  edit: false,
+  setEdit: (value) => set({ edit: value }),
+  toggleEdit: () => set((state) => ({ edit: !state.edit })),
+}));
+
+
+interface IdState {
+  id: string | null;
+  setId: (id: string) => void;
+  clearId: () => void;
+  getId: (title: string, link: string, type: string) => Promise<void>;
+}
+
+export const useIdStore = create<IdState>((set) => ({
+  id: null,
+
+  setId: (id) => set({ id }),
+
+  clearId: () => set({ id: null }),
+
+  getId: async (title: string, link: string, type: string) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/vi/getId",
+        { title, link, type },
+        { withCredentials: true }
+      );
+
+      const fetchedId = response.data?.content?.[0]?._id;
+
+      if (fetchedId) {
+        set({ id: fetchedId });
+        console.log("Saved ID:", fetchedId);
+      }
+    } catch (error) {
+      console.error("Error fetching ID:", error);
+    }
+  },
+}));
