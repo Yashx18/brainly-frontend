@@ -8,6 +8,8 @@ interface ContentItem {
   [key: string]: any;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 interface ContentStore {
   content: ContentItem[];
@@ -26,7 +28,7 @@ export const useContentStore = create<ContentStore>((set, get) => ({
 
   fetchContent: async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/vi/content", {
+      const res = await axios.get(`${API_URL}/api/vi/content`, {
         withCredentials: true,
       });
 
@@ -110,7 +112,7 @@ export const useIdStore = create<IdState>((set) => ({
   getId: async (title: string, link: string, type: string) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/vi/getId",
+        `${API_URL}/api/vi/getId`,
         { title, link, type },
         { withCredentials: true }
       );

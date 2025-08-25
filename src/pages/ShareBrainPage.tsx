@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Card } from "@/components/Card";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const ShareBrainPage = () => {
   const { sharelink } = useParams<{ sharelink: string }>();
   const [data, setData] = useState<any[]>([]);
@@ -11,7 +14,7 @@ const ShareBrainPage = () => {
     const getUserData = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:3000/api/vi/brain/${sharelink}`,
+          `${API_URL}/api/vi/brain/${sharelink}`,
           {}
         );
         setData(response.data.info);

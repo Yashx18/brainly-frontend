@@ -2,6 +2,8 @@ import axios from "axios";
 import { useRef , useState} from "react";
 import { IoMdClose } from "react-icons/io";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 const SignUp = () => {
   const [signUpMessage, setSignUpMessage] = useState("");
@@ -13,7 +15,7 @@ const SignUp = () => {
     const password = passwordeRef.current?.value;
 
     try {
-      const response = await axios.post("http://localhost:3000/api/vi/sign-up", {
+      const response = await axios.post(`${API_URL}/api/vi/sign-up`, {
         username,
         password,
       });

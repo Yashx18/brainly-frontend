@@ -4,6 +4,9 @@ import { IoMdClose } from "react-icons/io";
 import { useContentStore } from "../store";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const SignIn = () => {
   const { fetchContent } = useContentStore();
   const [signInMessage, setSignInMessage] = useState("");
@@ -20,7 +23,7 @@ const SignIn = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/vi/sign-in",
+        `${API_URL}/api/vi/sign-in`,
         {
           username,
           password,

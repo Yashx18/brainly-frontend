@@ -17,6 +17,8 @@ interface AddContentProps {
   setAddContent: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const AddContent = ({ setAddContent }: AddContentProps) => {
   const { fetchContent } = useContentStore();
   const linkRef = useRef<any>(null);
@@ -43,7 +45,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/vi/content",
+        `${API_URL}/api/vi/content`,
         formData,
         {
           withCredentials: true,

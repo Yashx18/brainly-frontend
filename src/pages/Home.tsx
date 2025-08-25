@@ -17,6 +17,8 @@ const Home = () => {
   const [shareBrain, setShareBrain] = useState(false);
   const [addContent, setAddContent] = useState(false);
   const { content, fetchContent } = useContentStore();
+  const API_URL = import.meta.env.VITE_API_URL;
+
   // const { open } = useCardPopUp();
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const Home = () => {
           {content.map(({ title, link, type }) => {
             let src = "";
             if (type === "image" || type === "video") {
-              src = `http://localhost:3000${link}`;
+              src = `${API_URL}${link}`;
             }
 
             return (

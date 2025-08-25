@@ -14,6 +14,8 @@ interface Cardprops {
   type: "text" | "URL" | "image" | "video";
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const Card = ({ title, link, type }: Cardprops) => {
   const { openPopUp, selectedCard } = useCardPopUpData();
   const { fetchContent } = useContentStore();
@@ -21,7 +23,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
   async function deleteCard() {
       try {
         const response = await axios.delete(
-          "http://localhost:3000/api/vi/content",
+          `${API_URL}/api/vi/content`,
           {
             data: { title, link, type },
             withCredentials: true,
@@ -44,7 +46,6 @@ export const Card = ({ title, link, type }: Cardprops) => {
     <>
       <div
         onClick={() => {
-          
           // console.log(title, link, type);
           console.log(selectedCard);
         }}
@@ -71,9 +72,12 @@ export const Card = ({ title, link, type }: Cardprops) => {
           </div>
         </div>
         {/* Card Content */}
-        <div onClick={() => {
-          openPopUp({ title, link, type });
-        }} className="w-full">
+        <div
+          onClick={() => {
+            openPopUp({ title, link, type });
+          }}
+          className="w-full"
+        >
           {type == "URL" ? (
             <a
               href={link}
@@ -85,7 +89,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
           ) : null}
           {type == "image" ? (
             <img
-              src={`http://localhost:3000${link}`}
+              src={`${API_URL}${link}`}
               alt={title}
               className="rounded-lg w-80 h-50"
             />
@@ -93,7 +97,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
           {type == "video" ? (
             <video className="w-screen h-auto rounded-lg z-0" controls>
               <source
-                src={`http://localhost:3000${link}`}
+                src={`${API_URL}${link}`}
                 type={`video/${link.substring(link.indexOf(".") + 1)}`}
               />
             </video>

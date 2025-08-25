@@ -7,6 +7,10 @@ interface ShareBrainProps {
   setPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+const APP_URL = import.meta.env.VITE_URL;
+
+
 const ShareBrain = ({ setPage }: ShareBrainProps) => {
   const [link, setLink] = useState("");
   console.log(link);
@@ -15,7 +19,7 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
   async function shareBrain() {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/vi/brain/share",
+        `${API_URL}/api/vi/brain/share`,
         {
           share: toggle,
           
@@ -26,7 +30,7 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
       );
 
       if (response.data) {
-        setLink(`http://localhost:5173${response.data.hash}`);
+        setLink(`${APP_URL}${response.data.hash}`);
       }
     } catch (error) {
       console.log("Error occured");

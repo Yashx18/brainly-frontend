@@ -26,6 +26,10 @@ const ContentType = {
   Text: "text",
 } as const;
 
+const API_URL = import.meta.env.VITE_API_URL;
+console.log(API_URL);
+
+
 export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
   const { closePopUp } = useCardPopUpData();
   const { edit, toggleEdit } = useEditStore();
@@ -38,32 +42,46 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
   >(ContentType.Text);
   // console.log(id);
 
-  async function updateContent() {
-    const newTitle = newTitleRef.current?.value;
-    const newLink = newLinkRef.current?.value;
-    
-    try {
-      const response = await axios.put(
-        `http://localhost:3000/api/vi/content/${id}`,
-        {
-          title: newTitle,
-          link: newLink,
-          type: dataType,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      if (response.data.message == "Content updated successfully") {
-        setTimeout(() => {
-          closePopUp();
-          fetchContent();
-        }, 1000);
-      }
-    } catch (error) {
-      console.log(error);
+async function updateContent() {
+  const newTitle = newTitleRef.current?.value;
+
+  const formData = new FormData();
+  formData.append("title", newTitle || "");
+  formData.append("type", dataType);
+
+  // Handle file uploads
+  if (dataType === "image" || dataType === "video") {
+    const fileInput = newLinkRef.current as HTMLInputElement;
+    if (fileInput && fileInput.files && fileInput.files[0]) {
+      formData.append("file", fileInput.files[0]); // <-- correct
     }
+  } else {
+    const newLink = newLinkRef.current?.value;
+    formData.append("link", newLink || "");
   }
+
+  try {
+    const response = await axios.put(
+      `${API_URL}/api/vi/content/${id}`,
+      formData,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    if (response.data) {
+      setTimeout(() => {
+        closePopUp();
+        fetchContent();
+      }, 1000);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
   return (
     <div
@@ -75,9 +93,11 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
       className="absolute w-full h-full bg-[#1b1b1b1e] h-
        flex items-center justify-center z-1"
     >
-      <div
-        className="border border-neutral-500 rounded-md bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
-                 w-full max-w-80 p-2 mr-1 mt-1 "
+      <form
+        action="#"
+        method="post"
+        encType="multipart/form-data"
+        className="border border-neutral-500 rounded-md bg-amber-50 flex flex-col items-start justify-baseline shadow-md w-full max-w-80 p-2 mr-1 mt-1"
       >
         <div className="top flex  items-center justify-between w-full bg-[#eaeaea] rounded-lg mb-2">
           <div className="flex items-start justify-between w-full">
@@ -141,14 +161,14 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
             ) : null}
             {type == "image" ? (
               <img
-                src={`http://localhost:3000${link}`}
+                src={`${API_URL}${link}`}
                 alt={title}
                 className="rounded-lg"
               />
             ) : null}
             {type == "video" ? (
               <video className="w-screen h-auto rounded-lg" controls>
-                <source src={`http://localhost:3000${link}`} type="video/mp4" />
+                <source src={`${API_URL}${link}`} type="video/mp4" />
               </video>
             ) : null}
             {type == "text" ? (
@@ -158,14 +178,13 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
             ) : null}
           </div>
         ) : (
-          <input
-            type={type == "image" || type == "video" ? "file" : "text"}
+            <input
+            type={dataType == "image" || dataType == "video" ? "file" : "text"}
             placeholder={link}
             ref={newLinkRef}
             className="p-1.5 border border-[#2121213f] w-full rounded-lg"
-          />
+          /> 
         )}
-
         {edit && (
           <div className="mb-3">
             {/* const contentTypes = ["image", "video", "audio", "URL", "text"]; // Extend as needed */}
@@ -217,7 +236,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
             Update
           </div>
         )}
-      </div>
+      </form>
     </div>
   );
 };
