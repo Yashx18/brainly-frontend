@@ -15,7 +15,7 @@ const SignUp = () => {
     const password = passwordeRef.current?.value;
 
     try {
-      const response = await axios.post(`${API_URL}/api/vi/sign-up`, {
+      const response = await axios.post(`${API_URL}/api/auth/sign-up`, {
         username,
         password,
       });

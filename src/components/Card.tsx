@@ -23,7 +23,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
   async function deleteCard() {
       try {
         const response = await axios.delete(
-          `${API_URL}/api/vi/content`,
+          `${API_URL}/api/content`,
           {
             data: { title, link, type },
             withCredentials: true,
@@ -49,8 +49,8 @@ export const Card = ({ title, link, type }: Cardprops) => {
           // console.log(title, link, type);
           console.log(selectedCard);
         }}
-        className="border border-neutral-500 rounded-md bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
-     w-full max-w-80 p-2 mt-1 ml-1 cursor-pointer"
+        className="border border-neutral-500 rounded-lg bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
+     w-full max-w-80 p-2 cursor-pointer h-auto"
       >
         <div className="top flex  items-start justify-between w-full bg-[#eaeaea] p-1.5 rounded-lg mb-2">
           <div className="flex items-start justify-between">
@@ -91,7 +91,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
             <img
               src={`${API_URL}${link}`}
               alt={title}
-              className="rounded-lg w-80 h-50"
+              className="rounded-lg w-80 h-auto"
             />
           ) : null}
           {type == "video" ? (

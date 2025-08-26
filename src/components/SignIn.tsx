@@ -23,7 +23,7 @@ const SignIn = () => {
 
     try {
       const response = await axios.post(
-        `${API_URL}/api/vi/sign-in`,
+        `${API_URL}/api/auth/sign-in`,
         {
           username,
           password,

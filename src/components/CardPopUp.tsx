@@ -53,7 +53,7 @@ async function updateContent() {
   if (dataType === "image" || dataType === "video") {
     const fileInput = newLinkRef.current as HTMLInputElement;
     if (fileInput && fileInput.files && fileInput.files[0]) {
-      formData.append("file", fileInput.files[0]); // <-- correct
+      formData.append("file", fileInput.files[0]); 
     }
   } else {
     const newLink = newLinkRef.current?.value;
@@ -62,7 +62,7 @@ async function updateContent() {
 
   try {
     const response = await axios.put(
-      `${API_URL}/api/vi/content/${id}`,
+      `${API_URL}/api/content/${id}`,
       formData,
       {
         withCredentials: true,

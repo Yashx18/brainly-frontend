@@ -19,7 +19,7 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
   async function shareBrain() {
     try {
       const response = await axios.post(
-        `${API_URL}/api/vi/brain/share`,
+        `${API_URL}/api/brain/share`,
         {
           share: toggle,
           

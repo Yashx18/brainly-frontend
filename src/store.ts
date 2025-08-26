@@ -28,7 +28,7 @@ export const useContentStore = create<ContentStore>((set, get) => ({
 
   fetchContent: async () => {
     try {
-      const res = await axios.get(`${API_URL}/api/vi/content`, {
+      const res = await axios.get(`${API_URL}/api/content`, {
         withCredentials: true,
       });
 
@@ -112,7 +112,7 @@ export const useIdStore = create<IdState>((set) => ({
   getId: async (title: string, link: string, type: string) => {
     try {
       const response = await axios.post(
-        `${API_URL}/api/vi/getId`,
+        `${API_URL}/api/content/getId`,
         { title, link, type },
         { withCredentials: true }
       );

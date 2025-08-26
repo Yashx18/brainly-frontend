@@ -45,7 +45,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
 
     try {
       const response = await axios.post(
-        `${API_URL}/api/vi/content`,
+        `${API_URL}/api/content`,
         formData,
         {
           withCredentials: true,

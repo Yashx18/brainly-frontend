@@ -4,8 +4,6 @@ import { Card } from "@/components/Card";
 import { CardPopUp } from "@/components/CardPopUp";
 import ShareBrain from "@/components/ShareBrain";
 import SideBar from "@/components/SideBar";
-// import SignIn from "@/components/SignIn";
-// import SignUp from "@/components/SignUp";
 import { PlusIcon } from "@/icons/PlusIcon";
 import { ShareIcon } from "@/icons/ShareIcon";
 import { useContentStore } from "@/store";
@@ -54,33 +52,37 @@ const Home = () => {
           />
         </div>
         {/* This is the Cards Section. */}
-        <div className="Content w-full h-full flex items-baseline justify-start flex-wrap overflow-y-auto relative">
-          {content.map(({ title, link, type }) => {
-            let src = "";
-            if (type === "image" || type === "video") {
-              src = `${API_URL}${link}`;
-            }
 
-            return (
-              <>
-                {open && selectedCard && (
-                  <CardPopUp
-                    title={selectedCard.title}
-                    link={selectedCard.link}
-                    type={selectedCard.type}
-                    onClose={closePopUp}
+        {/* Masonry Section */}
+        <div className="Content w-full h-full overflow-y-auto p-1">
+          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-1">
+            {content.map(({ title, link, type }) => {
+              let src = "";
+              if (type === "image" || type === "video") {
+                src = `${API_URL}${link}`;
+              }
+
+              return (
+                <div key={title} className="mb-1 break-inside-avoid">
+                  {open && selectedCard && (
+                    <CardPopUp
+                      title={selectedCard.title}
+                      link={selectedCard.link}
+                      type={selectedCard.type}
+                      onClose={closePopUp}
+                    />
+                  )}
+                  <Card
+                    key={title}
+                    // @ts-ignore
+                    type={type}
+                    link={link == "image" ? src : link}
+                    title={title}
                   />
-                )}
-                <Card
-                  key={title}
-                  // @ts-ignore
-                  type={type}
-                  link={link == "image" ? src : link}
-                  title={title}
-                />
-              </>
-            );
-          })}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
@@ -88,4 +90,3 @@ const Home = () => {
 };
 
 export default Home;
-
