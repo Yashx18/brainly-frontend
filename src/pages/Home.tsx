@@ -55,7 +55,15 @@ const Home = () => {
 
         {/* Masonry Section */}
         <div className="Content w-full h-full overflow-y-auto p-1">
-          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-1">
+          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-1 relative">
+        {open && selectedCard && (
+          <CardPopUp
+            title={selectedCard.title}
+            link={selectedCard.link}
+            type={selectedCard.type}
+            onClose={closePopUp}
+          />
+        )}
             {content.map(({ title, link, type }) => {
               let src = "";
               if (type === "image" || type === "video") {
@@ -63,23 +71,17 @@ const Home = () => {
               }
 
               return (
-                <div key={title} className="mb-1 break-inside-avoid">
-                  {open && selectedCard && (
-                    <CardPopUp
-                      title={selectedCard.title}
-                      link={selectedCard.link}
-                      type={selectedCard.type}
-                      onClose={closePopUp}
+                <>
+                  <div key={title} className="mb-1 break-inside-avoid">
+                    <Card
+                      key={title}
+                      // @ts-ignore
+                      type={type}
+                      link={link == "image" ? src : link}
+                      title={title}
                     />
-                  )}
-                  <Card
-                    key={title}
-                    // @ts-ignore
-                    type={type}
-                    link={link == "image" ? src : link}
-                    title={title}
-                  />
-                </div>
+                  </div>
+                </>
               );
             })}
           </div>

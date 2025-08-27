@@ -10,10 +10,8 @@ interface ShareBrainProps {
 const API_URL = import.meta.env.VITE_API_URL;
 const APP_URL = import.meta.env.VITE_URL;
 
-
 const ShareBrain = ({ setPage }: ShareBrainProps) => {
   const [link, setLink] = useState("");
-  console.log(link);
 
   const [toggle, setToggle] = useState(true);
   async function shareBrain() {
@@ -22,7 +20,6 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
         `${API_URL}/api/brain/share`,
         {
           share: toggle,
-          
         },
         {
           withCredentials: true,
@@ -34,38 +31,47 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
       }
     } catch (error) {
       console.log("Error occured");
-      console.error(error);
+      // console.error(error);
     }
-  
-  
   }
 
   return (
     // bg-[]
 
-    <div className="bg-[#383838] rounded-md w-110 h-50  flex flex-col items-center justify-start   border-2 border-[#44444483] absolute z-1 right-70 top-11">
-      <div className="w-full flex items-center justify-between border-b border-[#757575] px-4 py-2">
-        <span className="text-2xl font-medium text-white ">Share Brain</span>
+    <div className="bg-[#ffffff] rounded-md w-110 h-45  flex flex-col items-center justify-start   border-2 border-[#44444483] absolute z-1 right-70 top-11">
+      <div className="w-full flex items-center justify-between border-b border-[#757575] px-2 py-2">
+        <span className="text-2xl font-medium text-[#757575] ">
+          Share Brain
+        </span>
         <IoMdClose
-          className="size-6 cursor-pointer text-white hover:text-[#c5c5c5]"
+          className="size-6 cursor-pointer text-[#757575] hover:text-[#c5c5c5]"
           onClick={() => {
             setPage((val) => !val);
           }}
         />
       </div>
-      <div className="w-full h-full px-4 py-2 text-white bg-red-400 items-start justify-around flex flex-col">
-        <div className="flex items-center justify-between w-full h-full bg-amber-300">
+      <div className="w-full h-full px-4 py-2 text-[#757575]   bg-[#ffffff] items-start justify-around flex flex-col rounded-b-xl">
+        <div className="flex items-center justify-between w-full h- bg-[#ffffff] ">
           <span className="text-lg font-xl">Enable Share Brain : </span>
-          <Switch onClick={() => {
-            setToggle(val => !val);
-            console.log(toggle);
-            shareBrain();
-          }}/>
+          <Switch
+            onClick={() => {
+              shareBrain();
+              setToggle((val) => !val);
+            }}
+          />
         </div>
-        <span className="text-md font-">Link is mentioned below :</span>
-        <a href={ `${link}`} className="bg-[#212121] px-2 py-1 rounded-lg text-blue-600" target="_blank">
-          {link}
-        </a>
+        <div className="flex flex-col items-start justify-center w-full">
+          <span className="text-md font-mono mb-1">
+            Link is mentioned below :
+          </span>
+          <a
+            href={`${link}`}
+            className="bg-[#212121] px-2 py-1 rounded-md text-[#62abff] w-full h-9 flex items-center justify-start"
+            target="_blank"
+          >
+            {!toggle ? link : null}
+          </a>
+        </div>
       </div>
     </div>
   );

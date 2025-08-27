@@ -12,14 +12,14 @@ import { GoHome } from "react-icons/go";
 import { useContentStore } from "../store";
 
 const styles = {
-  open: "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#212121] transition-all duration-500 ease-in-out ",
+  open: "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
   close:
-    "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out  border-r border-[#212121] ",
+    "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
 };
 const parentStyles = {
   open: "flex items-center justify-between w-full py-3 border-b border-[#989898] px-1 ",
   close:
-    "flex items-center justify-center w-full py-3 border-b border-[#989898] ",
+    "flex items-center justify-center w-full py-3 border-b border-[#989898]  ",
 };
 // const dataType = {
 //   All: "all",
@@ -49,9 +49,9 @@ const SideBar = () => {
           {open ? (
             <div className="flex items-center justify-between">
               <span className="mr-2 ml-1">
-                <FaGraduationCap className=" text-[#e2c6f2] size-7" />
+                <FaGraduationCap className=" text-[#585858] size-7" />
               </span>
-              <p className="  text-red-100 font-medium text-2xl">Brainly</p>
+              <p className="  text-[#585858] font-medium text-2xl">Brainly</p>
             </div>
           ) : null}
           {/* MENU ICON */}
@@ -63,7 +63,7 @@ const SideBar = () => {
             {open ? (
               <TbLayoutSidebarLeftCollapse className="size-8 text-[#212121] cursor-pointer" />
             ) : (
-              <TbLayoutSidebarRightCollapse className="size-8 text-[#212121]cursor-pointer" />
+              <TbLayoutSidebarRightCollapse className="size-8 text-[#212121] cursor-pointer" />
             )}
           </div>
         </div>
