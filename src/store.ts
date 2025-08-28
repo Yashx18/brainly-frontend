@@ -10,17 +10,14 @@ interface ContentItem {
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-
 interface ContentStore {
   content: ContentItem[];
-  filter: string; 
+  filter: string;
   fetchContent: () => Promise<void>;
   setFilter: (filter: string) => void;
   setContent: (newContent: ContentItem[]) => void;
   addContent: (item: ContentItem) => void;
 }
-
-
 
 export const useContentStore = create<ContentStore>((set, get) => ({
   content: [],
@@ -48,12 +45,10 @@ export const useContentStore = create<ContentStore>((set, get) => ({
 
   setFilter: (filter: string) => {
     set({ filter });
-    get().fetchContent(); 
+    get().fetchContent();
   },
 
-
   setContent: (newContent) => set({ content: newContent }),
-
 
   addContent: (item) =>
     set((state) => ({
@@ -94,7 +89,6 @@ export const useEditStore = create<EditState>((set) => ({
   toggleEdit: () => set((state) => ({ edit: !state.edit })),
 }));
 
-
 interface IdState {
   id: string | null;
   setId: (id: string) => void;
@@ -125,6 +119,27 @@ export const useIdStore = create<IdState>((set) => ({
       }
     } catch (error) {
       console.error("Error fetching ID:", error);
+    }
+  },
+}));
+
+
+interface UserInfoProps {
+  info: string | null;
+  getInfo: () => Promise<void>;
+}
+export const userInfo = create<UserInfoProps>((set) => ({
+  info: null,
+  getInfo: async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/auth/userInfo`, {
+        withCredentials: true,
+      });
+      const username = response.data?.info;
+      set({ info: username });
+      
+    } catch (error) {
+      console.error("Error fetching user info:", error);
     }
   },
 }));

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SideBarItem } from "./SideBarItems";
 import { IoImageOutline } from "react-icons/io5";
 import { FiYoutube } from "react-icons/fi";
@@ -10,6 +10,7 @@ import { TbLayoutSidebarRightCollapse } from "react-icons/tb";
 import { FaGraduationCap } from "react-icons/fa6";
 import { GoHome } from "react-icons/go";
 import { useContentStore } from "../store";
+import { userInfo } from "../store";
 
 const styles = {
   open: "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
@@ -32,7 +33,12 @@ const parentStyles = {
 const SideBar = () => {
   const { setFilter } = useContentStore();
   const [open, setOpen] = useState(false);
-
+  const { info, getInfo } = userInfo();
+  
+  useEffect(() => {
+  getInfo();
+    
+  }, [])
   return (
     <div
       className={`transition-all duration-500 ease-in-out ${
@@ -113,13 +119,13 @@ const SideBar = () => {
       <div
         className={
           open
-            ? "w-19/20 flex items-center justify-center text-xl font-medium bg-[#656565] rounded-lg mb-2  hover:bg-[#d4d4d4] cursor-pointer"
+            ? "w-19/20 flex items-center justify-center text-xl font-medium bg-[#4345d7] rounded-lg mb-2 text-white  hover:bg-[#383ab5] cursor-pointer"
             : "w-15/20 flex items-center justify-center text-xl font-medium bg-[#656565] rounded-full mb-2 p-2 hover:bg-[#d4d4d4] cursor-pointer text-[#fff7f7] hover:text-[#000000]"
         }
       >
         {open ? (
-          <span className=" w-full flex items-center justify-center cursor-pointer py-3">
-            Account
+          <span className=" w-full flex items-center justify-center  cursor-pointer py-3">
+            {`Hey👋 ${info}`}
           </span>
         ) : (
           <FaRegUser className="size-6" />
