@@ -26,7 +26,7 @@ const Home = () => {
   // @ts-ignore
 
   return (
-    <div className="bg-white w-full h-screen flex relative ">
+    <div className="bg-white w-full h-screen flex flex-col-reverse sm:flex-row relative ">
       {addContent && <AddContent setAddContent={setAddContent} />}
       {shareBrain && <ShareBrain setPage={setShareBrain} />}
       {/* SIDEBAR SECTION */}

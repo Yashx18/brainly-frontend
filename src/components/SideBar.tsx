@@ -15,20 +15,13 @@ import { userInfo } from "../store";
 const styles = {
   open: "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
   close:
-    "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
+    "sm:h-screen w-full sm:max-w-54 h-20 flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
 };
 const parentStyles = {
   open: "flex items-center justify-between w-full py-3 border-b border-[#989898] px-1 ",
   close:
     "flex items-center justify-center w-full py-3 border-b border-[#989898]  ",
 };
-// const dataType = {
-//   All: "all",
-//   Video: "video",
-//   Image: "image",
-//   URL: "URL",
-//   Text: "text",
-// } as const;
 
 const SideBar = () => {
   const { setFilter } = useContentStore();
@@ -45,7 +38,7 @@ const SideBar = () => {
         open ? styles.open : styles.close
       }`}
     >
-      <div className="w-full">
+      <div className="w-full flex sm:flex-col">
         <div
           className={` transition-all duration-200 ease-in-out ${
             open ? parentStyles.open : parentStyles.close
@@ -73,7 +66,7 @@ const SideBar = () => {
             )}
           </div>
         </div>
-        <div className="h-auto  flex flex-col items-start ">
+        <div className="h-auto  flex sm:flex-col items-start ">
           <SideBarItem
             open={open}
             logo={<GoHome className="size-6" />}
