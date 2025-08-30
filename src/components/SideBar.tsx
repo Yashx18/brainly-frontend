@@ -11,6 +11,8 @@ import { FaGraduationCap } from "react-icons/fa6";
 import { GoHome } from "react-icons/go";
 import { useContentStore } from "../store";
 import { userInfo } from "../store";
+import LogoutButton from "./LogoutButton";
+
 
 const styles = {
   open: "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
@@ -34,11 +36,14 @@ const SideBar = () => {
   const { setFilter } = useContentStore();
   const [open, setOpen] = useState(false);
   const { info, getInfo } = userInfo();
+
   
   useEffect(() => {
   getInfo();
     
   }, [])
+  // console.log(info);
+  
   return (
     <div
       className={`transition-all duration-500 ease-in-out ${
@@ -116,7 +121,8 @@ const SideBar = () => {
           />
         </div>
       </div>
-      <div
+
+      {/* <div
         className={
           open
             ? "w-19/20 flex items-center justify-center text-xl font-medium bg-[#4345d7] rounded-lg mb-2 text-white  hover:bg-[#383ab5] cursor-pointer"
@@ -130,7 +136,9 @@ const SideBar = () => {
         ) : (
           <FaRegUser className="size-6" />
         )}
-      </div>
+      </div> */}
+      <LogoutButton />
+
     </div>
   );
 };

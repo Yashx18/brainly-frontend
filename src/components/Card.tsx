@@ -49,7 +49,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
           // console.log(title, link, type);
           console.log(selectedCard);
         }}
-        className="border border-neutral-500 rounded-lg bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
+        className="rounded-lg bg-amber-50 flex flex-col items-start justify-baseline shadow-xl 
      w-full max-w-80 p-2 cursor-pointer h-auto"
       >
         <div className="top flex  items-start justify-between w-full bg-[#eaeaea] p-1.5 rounded-lg mb-2">
@@ -91,11 +91,11 @@ export const Card = ({ title, link, type }: Cardprops) => {
             <img
               src={`${API_URL}${link}`}
               alt={title}
-              className="rounded-lg w-80 h-auto"
+              className="rounded-md w-80 h-auto"
             />
           ) : null}
           {type == "video" ? (
-            <video className="w-screen h-auto rounded-lg z-0" controls>
+            <video className="w-screen h-auto rounded-md z-0" controls>
               <source
                 src={`${API_URL}${link}`}
                 type={`video/${link.substring(link.indexOf(".") + 1)}`}
@@ -103,7 +103,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
             </video>
           ) : null}
           {type == "text" ? (
-            <div className="bg-[#eaeaea] py-1 px-2 w-full h-auto rounded-lg">
+            <div className="bg-[#eaeaea] py-1 px-2 w-full h-auto rounded-md">
               <p className="text-md w-full overflow-y-auto">{link}</p>
             </div>
           ) : null}

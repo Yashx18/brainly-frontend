@@ -9,6 +9,7 @@ import { ShareIcon } from "@/icons/ShareIcon";
 import { useContentStore } from "@/store";
 import { useState, useEffect } from "react";
 import { useCardPopUpData } from "@/store";
+import Profile from "@/components/UserProfile";
 
 const Home = () => {
   const { open, selectedCard, closePopUp } = useCardPopUpData();
@@ -51,19 +52,19 @@ const Home = () => {
             startIcon={<PlusIcon size="md" />}
           />
         </div>
+        <Profile />
         {/* This is the Cards Section. */}
-
         {/* Masonry Section */}
-        <div className="Content w-full h-full overflow-y-auto p-1">
+        <div className="Content w-full h-full overflow-y-auto p-1.5">
           <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-1 relative">
-        {open && selectedCard && (
-          <CardPopUp
-            title={selectedCard.title}
-            link={selectedCard.link}
-            type={selectedCard.type}
-            onClose={closePopUp}
-          />
-        )}
+            {open && selectedCard && (
+              <CardPopUp
+                title={selectedCard.title}
+                link={selectedCard.link}
+                type={selectedCard.type}
+                onClose={closePopUp}
+              />
+            )}
             {content.map(({ title, link, type }) => {
               let src = "";
               if (type === "image" || type === "video") {
