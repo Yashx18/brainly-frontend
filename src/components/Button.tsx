@@ -21,7 +21,7 @@ const sizeStyles = {
 };
 
 const defaultStyles =
-  "font-semi-bold text-md flex items-center justify-between rounded-xl cursor-pointer mx-1 my-2";
+  "font-semi-bold text-md flex items-center justify-between rounded-xl cursor-pointer mx-1 sm:my-2 my-1";
 
 export const Button = ({variant, size, text, startIcon, stateUpdater, endIcon}: ButtonProps) => {
   return (
@@ -31,7 +31,7 @@ export const Button = ({variant, size, text, startIcon, stateUpdater, endIcon}: 
         className={`${variantStyles[variant]} ${defaultStyles} ${sizeStyles[size]} `}
       >
         {startIcon}
-        <p className="ml-1">{text}</p>
+        <p className="ml-1 sm:block hidden">{text}</p>
         {endIcon}
       </div>
     </div>

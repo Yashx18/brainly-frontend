@@ -49,7 +49,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
           // console.log(title, link, type);
           console.log(selectedCard);
         }}
-        className="border border-neutral-500 rounded-lg bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
+        className=" rounded-xl bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
      w-full sm:max-w-80 p-2 cursor-pointer h-auto"
       >
         <div className="top flex  items-start justify-between w-full bg-[#eaeaea] p-1.5 rounded-lg mb-2">
@@ -63,10 +63,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
             <h4 className="text-md font-medium">{title}</h4>
           </div>
           <div className="flex items-center justify-between mt-1 ">
-            <span className="pr-2">
-              <ShareIcon />
-            </span>
-            <span onClick={deleteCard}>
+            <span onClick={deleteCard} className="font-bold text-2xl">
               <DeleteIcon />
             </span>
           </div>
@@ -91,7 +88,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
             <img
               src={`${API_URL}${link}`}
               alt={title}
-              className="rounded-lg w-80 h-auto"
+              className="rounded-lg w-screen sm:w-80 h-auto"
             />
           ) : null}
           {type == "video" ? (

@@ -38,7 +38,7 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
   return (
     // bg-[]
 
-    <div className="bg-[#ffffff] rounded-md w-110 h-45  flex flex-col items-center justify-start   border-2 border-[#44444483] absolute z-1 right-70 top-11">
+    <div className="bg-[#ffffff] rounded-md sm:w-110 h-45  flex flex-col items-center justify-start border-2 border-[#44444483] absolute right-4 bottom-40 z-1 sm:right-68 sm:top-15 ">
       <div className="w-full flex items-center justify-between border-b border-[#757575] px-2 py-2">
         <span className="text-2xl font-medium text-[#757575] ">
           Share Brain
@@ -64,13 +64,17 @@ const ShareBrain = ({ setPage }: ShareBrainProps) => {
           <span className="text-md font-mono mb-1">
             Link is mentioned below :
           </span>
-          <a
-            href={`${link}`}
-            className="bg-[#212121] px-2 py-1 rounded-md text-[#62abff] w-full h-9 flex items-center justify-start"
-            target="_blank"
-          >
-            {!toggle ? link : null}
-          </a>
+          <span className="bg-[#212121] px-2 py-1 rounded-md text-[#62abff] overflow-x-auto sm:w-full h-9 flex items-center justify-start">
+            {!toggle ? (
+              <a
+                href={`${link}`}
+                className="w-full max-w-60 flex items-center justify-start"
+                target="_blank"
+              >
+                {link}
+              </a>
+            ) : null}
+          </span>
         </div>
       </div>
     </div>

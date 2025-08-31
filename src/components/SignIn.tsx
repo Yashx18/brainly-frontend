@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useContentStore } from "../store";
 import { useNavigate } from "react-router-dom";
+import { MdVerified } from "react-icons/md";
 
 const API_URL = import.meta.env.VITE_API_URL;
-
 
 const SignIn = () => {
   const { fetchContent } = useContentStore();
@@ -14,8 +14,13 @@ const SignIn = () => {
   const passwordeRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const goToHome = () => {
-    navigate("/home")
-  }
+    setTimeout(() => {
+      navigate("/home");
+    }, 2000);
+  };
+  const goToSignUp = () => {
+    navigate("/sign-up");
+  };
 
   async function signIn() {
     const username = usernameRef.current?.value;
@@ -32,13 +37,13 @@ const SignIn = () => {
           withCredentials: true,
         }
       );
-      if (response.data) {
+      if (response.data.done) {
         const message = response.data.message;
         setSignInMessage(message);
         goToHome();
         setTimeout(() => {
           fetchContent();
-        }, 2000);
+        }, 1000);
       } else {
         alert("User not found");
       }
@@ -50,8 +55,7 @@ const SignIn = () => {
 
   useEffect(() => {
     console.log(signInMessage);
-    
-  },[signInMessage])
+  }, [signInMessage]);
   return (
     <div
       className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center z-1
@@ -60,10 +64,7 @@ const SignIn = () => {
       <div className="bg-white rounded-md w-110 h-auto px-12 py-8 flex flex-col items-center justify-center">
         <div className="w-full flex items-center justify-between mb-4">
           <span className="text-2xl font-medium ">Sign In</span>
-          <IoMdClose
-            className="size-6 cursor-pointer hover:text-[#5c5c5c]"
-            
-          />
+          <IoMdClose className="size-6 cursor-pointer hover:text-[#5c5c5c]" />
         </div>
         <form
           action="#"
@@ -85,18 +86,18 @@ const SignIn = () => {
             <p>Password</p>
             <input
               ref={passwordeRef}
-              type="text"
+              type="password"
               className="w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
             />
-            <span className="cursor-pointer w-full flex items-center justify-end my-1">
-              Forgot Password ?
-            </span>
           </div>
           {signInMessage && (
-            <div className=" text-xl">
-              <p>{signInMessage}</p>
+            <div className="w-fit border rounded-lg bg-white shadow-sm flex items-center justify-start">
+              <div className="px-2 py-1 flex items-center justify-between">
+                <MdVerified />
+                <p className="text-lg font-medium ml-1">{signInMessage}</p>
+              </div>
             </div>
-          )}
+          )}{" "}
           <div>
             <div
               className="w-full cursor-pointer bg-purple-500 text-white font-medium flex items-center justify-center py-2 rounded-md hover:bg-[#9f579c]"
@@ -105,13 +106,10 @@ const SignIn = () => {
               Sign In
             </div>
           </div>
-
           <div className="flex items-center justify-center mt-5">
             <span>
               Don't have an account?{" "}
-              <span
-                className="underline text-[#5a54c7] cursor-pointer"
-              >
+              <span className="underline text-[#5a54c7] cursor-pointer" onClick={goToSignUp}>
                 Sign Up
               </span>
             </span>

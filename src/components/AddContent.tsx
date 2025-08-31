@@ -67,7 +67,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
       className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center z-1
       "
     >
-      <div className="bg-white rounded-md w-110 h-auto px-12 py-8 flex flex-col items-center justify-center">
+      <div className="bg-white rounded-md w-full max-w-100 h-auto px-10 py-8 flex flex-col items-center justify-center">
         <div className="w-full flex items-center justify-between mb-4">
           <span className="text-2xl font-medium ">Add Content</span>
           <IoMdClose

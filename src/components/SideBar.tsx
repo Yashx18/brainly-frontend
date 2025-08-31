@@ -13,34 +13,33 @@ import { useContentStore } from "../store";
 import { userInfo } from "../store";
 
 const styles = {
-  open: "h-screen w-full max-w-54   flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
+  open: "h-screen w-full sm:max-w-54  flex sm:flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
   close:
-    "sm:h-screen w-full sm:max-w-54 h-20 flex flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
+    "sm:h-screen w-full sm:max-w-54 h-auto py-3 sm:py-0 rounded-t-3xl sm:rounded-t-[0px] border-t-1 sm:border-t-0 flex sm:flex-col items-center justify-between bg-[#ffffff]  border-r border-[#989898] sm:static absolute bottom-0 z-1",
 };
 const parentStyles = {
-  open: "flex items-center justify-between w-full py-3 border-b border-[#989898] px-1 ",
+  open: "sm:flex items-center justify-between w-full py-3 border-b border-[#989898] px-1 ",
   close:
-    "flex items-center justify-center w-full py-3 border-b border-[#989898]  ",
+    "sm:flex items-center justify-center w-full py-3 border-b border-[#989898]  ",
 };
 
 const SideBar = () => {
   const { setFilter } = useContentStore();
   const [open, setOpen] = useState(false);
   const { info, getInfo } = userInfo();
-  
+
   useEffect(() => {
-  getInfo();
-    
-  }, [])
+    getInfo();
+  }, []);
   return (
     <div
-      className={`transition-all duration-500 ease-in-out ${
+      className={`transition-all duration-500 ease-in-out  ${
         open ? styles.open : styles.close
       }`}
     >
       <div className="w-full flex sm:flex-col">
         <div
-          className={` transition-all duration-200 ease-in-out ${
+          className={` transition-all duration-200 ease-in-out hidden ${
             open ? parentStyles.open : parentStyles.close
           }`}
         >
@@ -66,7 +65,7 @@ const SideBar = () => {
             )}
           </div>
         </div>
-        <div className="h-auto  flex sm:flex-col items-start ">
+        <div className="h-auto flex sm:flex-col items-start w-full">
           <SideBarItem
             open={open}
             logo={<GoHome className="size-6" />}
@@ -113,7 +112,7 @@ const SideBar = () => {
         className={
           open
             ? "w-19/20 flex items-center justify-center text-xl font-medium bg-[#4345d7] rounded-lg mb-2 text-white  hover:bg-[#383ab5] cursor-pointer"
-            : "w-15/20 flex items-center justify-center text-xl font-medium bg-[#656565] rounded-full mb-2 p-2 hover:bg-[#d4d4d4] cursor-pointer text-[#fff7f7] hover:text-[#000000]"
+            : "w-fit sm:w-15/20 flex items-center justify-center text-xl font-medium bg-[#656565] rounded-full sm:mb-2 p-2 ml-2 mr-4 sm:mx-0 hover:bg-[#d4d4d4] cursor-pointer text-[#fff7f7] hover:text-[#000000]"
         }
       >
         {open ? (
