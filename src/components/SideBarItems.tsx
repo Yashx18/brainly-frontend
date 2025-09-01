@@ -9,13 +9,13 @@ interface SideBarProps {
 }
 
 const parentStyles = {
-  open: "flex items-center justify-start w-full cursor-pointer hover:bg-[#ababab] hover:text-[#212121] py-2 text-[#212121]",
+  open: "flex items-center sm:justify-start justify-center w-full cursor-pointer hover:bg-[#ababab] hover:text-[#212121] py-2 text-[#212121]",
   close:
     "flex items-center justify-center w-full cursor-pointer hover:bg-[#ababab] hover:text-[#212121] py-2 text-[#212121]",
 };
 
 const styles = {
-  open: "flex items-center justify-start w-auto ml-6 mr-16",
+  open: "flex items-center justify-start sm:w-auto w-full mx-3 sm:ml-6 sm:mr-16",
   close: "flex items-center justify-center w-auto ",
 };
 export const SideBarItem = ({ text, logo, open, onClick }: SideBarProps) => {
@@ -31,8 +31,8 @@ export const SideBarItem = ({ text, logo, open, onClick }: SideBarProps) => {
           open ? styles.open : styles.close
         }`}
       >
-        <span className={open ? "mr-3" : "mx-3"}>{logo}</span>
-        {open ? <div className=" text-lg flex items-start">{text}</div> : null}
+        <span className={open ? "sm:mr-3" : "mx-3"}>{logo}</span>
+        {open ? <div className=" text-lg sm:flex items-start hidden">{text}</div> : null}
       </div>
     </div>
   );

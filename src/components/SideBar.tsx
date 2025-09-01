@@ -13,12 +13,12 @@ import { useContentStore } from "../store";
 import { userInfo } from "../store";
 
 const styles = {
-  open: "h-screen w-full sm:max-w-54  flex sm:flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] ",
+  open: "sm:h-screen h-auto w-full sm:max-w-54  flex sm:flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] absolute bottom-0 z-1  sm:static",
   close:
     "sm:h-screen w-full sm:max-w-54 h-auto py-3 sm:py-0 rounded-t-3xl sm:rounded-t-[0px] border-t-1 sm:border-t-0 flex sm:flex-col items-center justify-between bg-[#ffffff]  border-r border-[#989898] sm:static absolute bottom-0 z-1",
 };
 const parentStyles = {
-  open: "sm:flex items-center justify-between w-full py-3 border-b border-[#989898] px-1 ",
+  open: "sm:flex items-center justify-between w-full py-3 border-b border-[#989898] sm:px-1 ",
   close:
     "sm:flex items-center justify-center w-full py-3 border-b border-[#989898]  ",
 };
@@ -111,13 +111,14 @@ const SideBar = () => {
       <div
         className={
           open
-            ? "w-19/20 flex items-center justify-center text-xl font-medium bg-[#4345d7] rounded-lg mb-2 text-white  hover:bg-[#383ab5] cursor-pointer"
+            ? "sm:w-19/20 w-fit flex items-center justify-center text-xl font-medium sm:bg-[#4345d7] bg-[#656565] sm:p-1 p-2 sm:rounded-lg rounded-full sm:mb-2 text-white hover:bg-[#383ab5] cursor-pointer"
             : "w-fit sm:w-15/20 flex items-center justify-center text-xl font-medium bg-[#656565] rounded-full sm:mb-2 p-2 ml-2 mr-4 sm:mx-0 hover:bg-[#d4d4d4] cursor-pointer text-[#fff7f7] hover:text-[#000000]"
         }
       >
         {open ? (
-          <span className=" w-full flex items-center justify-center  cursor-pointer py-3">
-            {`Hey👋 ${info}`}
+          <span className=" sm:w-full w-auto sm:flex items-center justify-center  cursor-pointer sm:py-3">
+            <FaRegUser className="size-6 static sm:hidden" />
+            <p className="hidden sm:flex w-fit"> {`Hey👋 ${info}`}</p>
           </span>
         ) : (
           <FaRegUser className="size-6" />
