@@ -1,5 +1,4 @@
 import { DeleteIcon } from "../icons/DeleteIcon";
-import { ShareIcon } from "../icons/ShareIcon";
 import { TextIcon } from "../icons/TextIcon";
 import { FiYoutube } from "react-icons/fi";
 import { IoLinkSharp } from "react-icons/io5";
