@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import { IoMdClose } from "react-icons/io";
 import { MdVerified } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
@@ -33,7 +32,6 @@ const SignUp = () => {
         const message = response.data.message;
         setSignUpMessage(message);
         nextPage();
-        console.log("Signed up successfully");
       } else {
         alert("Sign up failed");
       }
@@ -48,10 +46,9 @@ const SignUp = () => {
       className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center
       "
     >
-      <div className="bg-white rounded-md w-full max-w-100 h-auto px-8 py-6 flex flex-col items-center justify-center">
+      <div className="bg-white rounded-md w-full max-w-80 h-auto px-8 py-6 flex flex-col items-center justify-center">
         <div className="w-full flex items-center justify-between mb-4">
           <span className="text-2xl font-medium ">Sign Up</span>
-          <IoMdClose className="size-6 cursor-pointer hover:text-[#5c5c5c]" />
         </div>
         <form
           action="#"
@@ -99,7 +96,10 @@ const SignUp = () => {
           <div className="flex items-center justify-center mt-5">
             <span>
               Already have an Account?{" "}
-              <span className="underline text-[#5a54c7] cursor-pointer" onClick={goToSignUp}>
+              <span
+                className=" text-[#5a54c7] cursor-pointer"
+                onClick={goToSignUp}
+              >
                 Sign In
               </span>
             </span>

@@ -33,7 +33,7 @@ const Home = () => {
       <div className="flex items-center justify-center sm:h-full h-auto">
         <SideBar />
       </div>
-      <div className="w-screen flex h-screen flex-col bg-[#eaeaea]">
+      <div className="w-screen flex h-screen flex-col bg-[#eaeaea] relative">
         {/* This is the navbar Section */}
         <div className="sm:flex items-center justify-end border-b border-[#a3a3a3] sm:static sm:rounded-none bg-white absolute z-10 right-4 bottom-18 rounded-2xl">
           <Button
@@ -53,8 +53,6 @@ const Home = () => {
         </div>
         {/* This is the Cards Section. */}
 
-        {/* Masonry Section */}
-        <div className="Content w-screen sm:w-full h-full overflow-y-auto sm:p-1">
         {open && selectedCard && (
           <CardPopUp
             title={selectedCard.title}
@@ -63,7 +61,9 @@ const Home = () => {
             onClose={closePopUp}
           />
         )}
-          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-1 relative sm:mt-0 mt-1 mb-19">
+        {/* Masonry Section */}
+        <div className="Content w-screen sm:w-full h-full overflow-y-auto sm:p-1 relative">
+          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-1 sm:mt-0 mt-1 mb-19">
             {content.map(({ title, link, type }) => {
               let src = "";
               if (type === "image" || type === "video") {

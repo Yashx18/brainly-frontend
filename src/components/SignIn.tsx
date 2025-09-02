@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { IoMdClose } from "react-icons/io";
 import { useContentStore } from "../store";
 import { useNavigate } from "react-router-dom";
 import { MdVerified } from "react-icons/md";
@@ -54,17 +53,15 @@ const SignIn = () => {
   }
 
   useEffect(() => {
-    console.log(signInMessage);
   }, [signInMessage]);
   return (
     <div
       className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center z-1
       "
     >
-      <div className="bg-white rounded-md w-110 h-auto px-12 py-8 flex flex-col items-center justify-center">
+      <div className="bg-white rounded-md w-full max-w-80 h-auto px-8 py-6 flex flex-col items-center justify-center">
         <div className="w-full flex items-center justify-between mb-4">
           <span className="text-2xl font-medium ">Sign In</span>
-          <IoMdClose className="size-6 cursor-pointer hover:text-[#5c5c5c]" />
         </div>
         <form
           action="#"
@@ -79,7 +76,7 @@ const SignIn = () => {
             <input
               ref={usernameRef}
               type="text"
-              className="w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
+              className="w-full border border-[#969696] focus-within:outline-[#919191] rounded-md text-black px-2 py-1"
             />
           </div>
           <div className="mb-3">
@@ -87,7 +84,7 @@ const SignIn = () => {
             <input
               ref={passwordeRef}
               type="password"
-              className="w-full border-2 border-[#696969] rounded-md text-black px-2 py-1"
+              className="w-full border border-[#969696] focus-within:outline-[#919191] rounded-md text-black px-2 py-1"
             />
           </div>
           {signInMessage && (
@@ -109,7 +106,10 @@ const SignIn = () => {
           <div className="flex items-center justify-center mt-5">
             <span>
               Don't have an account?{" "}
-              <span className="underline text-[#5a54c7] cursor-pointer" onClick={goToSignUp}>
+              <span
+                className=" text-[#5a54c7] cursor-pointer"
+                onClick={goToSignUp}
+              >
                 Sign Up
               </span>
             </span>
