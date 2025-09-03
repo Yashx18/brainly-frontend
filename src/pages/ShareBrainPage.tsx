@@ -41,7 +41,7 @@ const ShareBrainPage = () => {
           Brainly
         </a>
       </div>
-      <div className="Content w-full h-full overflow-y-auto p-2">
+      <div className="Content w-full h-full overflow-y-auto p-2 bg-[#eaeaea]">
         <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-1">
           {data.map((item) => {
             return (

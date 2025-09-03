@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import TypeOptions from "./TypeOptions";
 import { useState } from "react";
-
 import { useContentStore } from "../store";
 
 const ContentType = {
@@ -31,35 +30,35 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
     const title = titleRef.current?.value;
     const fileOrLink = linkRef.current?.files?.[0] || linkRef.current?.value;
 
-    const formData = new FormData();
-    formData.append("title", title || "");
-    formData.append("type", type);
+    if (title != "" || fileOrLink != "") {
+      const formData = new FormData();
+      formData.append("title", title || "");
+      formData.append("type", type);
 
-    if (type == "image" || type == "video") {
-      // @ts-ignore
-      formData.append("file", linkRef.current?.files?.[0]);
-    } else {
-      // @ts-ignore
-      formData.append("link", fileOrLink);
-    }
-
-    try {
-      const response = await axios.post(
-        `${API_URL}/api/content`,
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
-
-      if (response.data.message) {
-        console.log(response.data.message);
-        fetchContent();
-        setAddContent((val) => !val);
+      if (type == "image" || type == "video") {
+        // @ts-ignore
+        formData.append("file", linkRef.current?.files?.[0]);
+      } else {
+        // @ts-ignore
+        formData.append("link", fileOrLink);
       }
-    } catch (error) {
-      alert("Unable to send content");
-      console.error(error);
+
+      try {
+        const response = await axios.post(`${API_URL}/api/content`, formData, {
+          withCredentials: true,
+        });
+
+        if (response.data.message) {
+          console.log(response.data.message);
+          fetchContent();
+          setAddContent((val) => !val);
+        }
+      } catch (error) {
+        alert("Unable to send content");
+        console.error(error);
+      }
+    } else {
+      return 
     }
   }
   return (
@@ -97,6 +96,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
             {type == "image" || type == "video" ? (
               <input
                 ref={linkRef}
+                required
                 name="contentBar"
                 type={type == "image" || type == "video" ? "file" : "textarea"}
                 placeholder="Add content here !"
@@ -106,6 +106,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
               />
             ) : (
               <textarea
+                required
                 ref={linkRef}
                 placeholder="Type here ..."
                 className=" rounded-md w-full px-1.5 py-1.5 border-2 border-[#696969]"

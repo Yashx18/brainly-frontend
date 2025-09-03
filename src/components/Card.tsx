@@ -16,7 +16,7 @@ interface Cardprops {
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const Card = ({ title, link, type }: Cardprops) => {
-  const { openPopUp, selectedCard } = useCardPopUpData();
+  const { openPopUp } = useCardPopUpData();
   const { fetchContent } = useContentStore();
 
   async function deleteCard() {
@@ -29,7 +29,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
           },
         );
         if (response.data.message) {
-          console.log(response.data.message);
+          // console.log(response.data.message);
           fetchContent();
         }
         
@@ -37,17 +37,17 @@ export const Card = ({ title, link, type }: Cardprops) => {
         console.log(error);
         
     }
-    console.log(title, link, type);
+    // console.log(title, link, type);
     
     }
 
   return (
     <>
       <div
-        onClick={() => {
-          // console.log(title, link, type);
-          console.log(selectedCard);
-        }}
+        // onClick={() => {
+        //   // console.log(title, link, type);
+        //   // console.log(selectedCard);
+        // }}
         className=" rounded-xl bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
      w-full sm:max-w-80 p-2 cursor-pointer h-auto"
       >
