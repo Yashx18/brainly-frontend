@@ -36,7 +36,6 @@ const SignIn = () => {
           withCredentials: true,
         }
       );
-      console.log(API_URL);
       
       if (response.data.done) {
         const message = response.data.message;
