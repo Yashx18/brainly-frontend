@@ -44,10 +44,6 @@ export const Card = ({ title, link, type }: Cardprops) => {
   return (
     <>
       <div
-        // onClick={() => {
-        //   // console.log(title, link, type);
-        //   // console.log(selectedCard);
-        // }}
         className=" rounded-xl bg-amber-50 flex flex-col items-start justify-baseline shadow-md 
      w-full sm:max-w-80 p-2 cursor-pointer h-auto"
       >
@@ -85,7 +81,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
           ) : null}
           {type == "image" ? (
             <img
-              src={`${API_URL}${link}`}
+              src={`${link}`}
               alt={title}
               className="rounded-lg w-screen sm:w-80 h-auto"
             />
@@ -93,7 +89,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
           {type == "video" ? (
             <video className="w-screen h-auto rounded-lg z-0" controls>
               <source
-                src={`${API_URL}${link}`}
+                src={`${link}`}
                 type={`video/${link.substring(link.indexOf(".") + 1)}`}
               />
             </video>

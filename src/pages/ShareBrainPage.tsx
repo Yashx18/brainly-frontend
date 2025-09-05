@@ -52,11 +52,6 @@ const ShareBrainPage = () => {
           })}
         </div>
       </div>
-      {/* <div className="flex items-start justify-start flex-wrap w-full h-screen px-4 bg-[#eaeaea]">
-        {data.map((item) => (
-          <Card title={item.title} link={item.link} type={item.type} />
-        ))}
-      </div> */}
       <div className="w-screen h-auto flex items-center justify-center border-t border-t-black py-4">
         <span className="font-semibold">
           Made by
