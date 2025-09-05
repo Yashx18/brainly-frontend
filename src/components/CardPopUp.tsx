@@ -161,14 +161,14 @@ async function updateContent() {
             ) : null}
             {type == "image" ? (
               <img
-                src={`${API_URL}${link}`}
+                src={`${link}`}
                 alt={title}
                 className="rounded-lg"
               />
             ) : null}
             {type == "video" ? (
               <video className="w-screen h-auto rounded-lg" controls>
-                <source src={`${API_URL}${link}`} type="video/mp4" />
+                <source src={`${link}`} type="video/mp4" />
               </video>
             ) : null}
             {type == "text" ? (

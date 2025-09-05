@@ -88,10 +88,7 @@ export const Card = ({ title, link, type }: Cardprops) => {
           ) : null}
           {type == "video" ? (
             <video className="w-screen h-auto rounded-lg z-0" controls>
-              <source
-                src={`${link}`}
-                type={`video/${link.substring(link.indexOf(".") + 1)}`}
-              />
+              <source src={`${link}`} type={`video/${link.split(".").pop()}`} />
             </video>
           ) : null}
           {type == "text" ? (
