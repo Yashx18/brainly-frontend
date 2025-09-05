@@ -14,7 +14,7 @@ const ShareBrainPage = () => {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${API_URL}/api/brain/${sharelink}`,
           {}
         );
