@@ -16,9 +16,9 @@ import { LuLogOut } from "react-icons/lu";
 // import { useNavigate } from "react-router-dom";
 
 const styles = {
-  open: "sm:h-screen h-auto w-full sm:max-w-54  flex sm:flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] absolute bottom-0 z-1  sm:static py-3 border-t-1 sm:border-t-0 sm:py-0 rounded-t-3xl sm:rounded-t-[0px] px-3 sm:px-0",
+  open: "sm:h-screen h-auto w-full sm:max-w-54  flex sm:flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] fixed bottom-0 z-1  sm:static py-3 border-t-1 sm:border-t-0 sm:py-0 rounded-t-3xl sm:rounded-t-[0px] px-3 sm:px-0",
   close:
-    "sm:h-screen w-full sm:max-w-54 h-auto py-3 sm:py-0 rounded-t-3xl sm:rounded-t-[0px] border-t-1 sm:border-t-0 flex sm:flex-col items-center justify-between bg-[#ffffff]  border-r border-[#989898] sm:static absolute bottom-0 z-1",
+    "sm:h-screen w-full sm:max-w-54 h-auto py-3 sm:py-0 rounded-t-3xl sm:rounded-t-[0px] border-t-1 sm:border-t-0 flex sm:flex-col items-center justify-between bg-[#ffffff]  border-r border-[#989898] sm:static fixed bottom-0 z-1",
 };
 const parentStyles = {
   open: "sm:flex items-center justify-between w-full py-3 border-b border-[#989898] sm:px-1 ",

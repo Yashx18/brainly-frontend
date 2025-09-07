@@ -89,7 +89,7 @@ const SignIn = () => {
             />
           </div>
           {signInMessage && (
-            <div className="w-fit border rounded-lg bg-white shadow-sm flex items-center justify-start">
+            <div className="w-fit border rounded-lg bg-white shadow-sm flex items-center justify-start mb-2">
               <div className="px-2 py-1 flex items-center justify-between">
                 <MdVerified />
                 <p className="text-lg font-medium ml-1">{signInMessage}</p>
