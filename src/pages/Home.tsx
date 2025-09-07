@@ -37,7 +37,7 @@ const Home = () => {
       </div>
       <div className="w-screen flex h-screen flex-col bg-[#eaeaea] relative">
         {/* This is the navbar Section */}
-        <div className="sm:flex items-center justify-end border-b border-[#a3a3a3] sm:static sm:rounded-none bg-white absolute z-10 right-4 bottom-18 rounded-2xl">
+        <div className="sm:flex items-center justify-end border-b border-[#a3a3a3] sm:static sm:rounded-none bg-white fixed z-10 right-4 bottom-18 rounded-2xl">
           <Button
             stateUpdater={setShareBrain}
             variant="secondary"
