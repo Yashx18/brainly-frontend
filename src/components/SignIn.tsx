@@ -80,7 +80,7 @@ const SignIn = () => {
               className="w-full border border-[#969696] focus-within:outline-[#919191] rounded-md text-black px-2 py-1"
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-2">
             <p>Password</p>
             <input
               ref={passwordeRef}
