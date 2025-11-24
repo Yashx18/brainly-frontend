@@ -22,7 +22,7 @@ import { cn } from '@/lib/utils';
 const SideBar = () => {
   const { setFilter } = useContentStore();
   const [open, setOpen] = useState(false);
-  const { info, getInfo } = userInfo();
+  const { getInfo } = userInfo();
   const API_URL = import.meta.env.VITE_API_URL;
   // const navigate = useNavigate();
 
