@@ -28,16 +28,17 @@ const Home = () => {
   // @ts-ignore
 
   return (
-    <div className="bg-white w-full h-screen flex flex-col-reverse sm:flex-row relative ">
+    <div className="font-inter relative flex h-screen w-full flex-col-reverse sm:flex-row">
       {addContent && <AddContent setAddContent={setAddContent} />}
       {shareBrain && <ShareBrain setPage={setShareBrain} />}
       {/* SIDEBAR SECTION */}
-      <div className="flex items-center justify-center sm:h-full h-auto">
+      <div className="flex h-auto items-center justify-center sm:h-full">
         <SideBar />
       </div>
-      <div className="w-screen flex h-screen flex-col bg-[#eaeaea] relative">
+      {/* this is the canvas */}
+      <div className="relative flex h-screen w-screen flex-col bg-neutral-200">
         {/* This is the navbar Section */}
-        <div className="sm:flex items-center justify-end border-b border-[#a3a3a3] sm:static sm:rounded-none bg-white fixed z-10 right-4 bottom-18 rounded-2xl">
+        <div className="fixed right-4 bottom-18 z-10 items-center justify-end rounded-2xl border-b border-neutral-300 bg-white sm:static sm:flex sm:rounded-none">
           <Button
             stateUpdater={setShareBrain}
             variant="secondary"
@@ -64,11 +65,11 @@ const Home = () => {
           />
         )}
         {/* Masonry Section */}
-        <div className="Content w-screen sm:w-full h-full overflow-y-auto sm:p-1 relative">
-          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-1 sm:mt-0 mt-1 mb-19">
+        <div className="Content relative h-full w-screen overflow-y-auto sm:w-full sm:p-1">
+          <div className="mt-1 mb-19 columns-1 gap-1 sm:mt-0 sm:columns-2 md:columns-3 lg:columns-4">
             {content.map(({ title, link, type, _id }) => {
-              let src = "";
-              if (type === "image" || type === "video") {
+              let src = '';
+              if (type === 'image' || type === 'video') {
                 src = `${API_URL}${link}`;
               }
 
@@ -79,7 +80,7 @@ const Home = () => {
                       key={_id}
                       // @ts-ignore
                       type={type}
-                      link={link == "image" ? src : link}
+                      link={link == 'image' ? src : link}
                       title={title}
                     />
                   </div>

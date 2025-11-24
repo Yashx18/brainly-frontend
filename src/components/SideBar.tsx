@@ -1,30 +1,23 @@
-import { useEffect, useState } from "react";
-import { SideBarItem } from "./SideBarItems";
-import { IoImageOutline } from "react-icons/io5";
-import { FiYoutube } from "react-icons/fi";
-import { IoDocumentsOutline } from "react-icons/io5";
-import { IoLinkSharp } from "react-icons/io5";
-import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
-import { TbLayoutSidebarRightCollapse } from "react-icons/tb";
-import { FaGraduationCap } from "react-icons/fa6";
-import { GoHome } from "react-icons/go";
-import { useContentStore } from "../store";
-import { userInfo } from "../store";
-import axios from "axios";
-import { LuLogOut } from "react-icons/lu";
+import { useEffect, useState } from 'react';
+import { SideBarItem } from './SideBarItems';
+import { useContentStore } from '../store';
+import { userInfo } from '../store';
+import axios from 'axios';
+import { HugeIcons } from './icons/HugeIcons';
+import {
+  Home09Icon,
+  DocumentAttachmentIcon,
+  Image03Icon,
+  Video02Icon,
+  Link01Icon,
+  LogoutSquare01Icon,
+  SidebarLeft01Icon,
+  SidebarRight01Icon,
+  Database01Icon,
+} from '@hugeicons/core-free-icons';
+import { cn } from '@/lib/utils';
 
 // import { useNavigate } from "react-router-dom";
-
-const styles = {
-  open: "sm:h-screen h-auto w-full sm:max-w-54  flex sm:flex-col items-center justify-between bg-[#ffffff] transition-all duration-500 ease-in-out border-r border-[#989898] fixed bottom-0 z-1  sm:static py-3 border-t-1 sm:border-t-0 sm:py-0 rounded-t-3xl sm:rounded-t-[0px] px-3 sm:px-0",
-  close:
-    "sm:h-screen w-full sm:max-w-54 h-auto py-3 sm:py-0 rounded-t-3xl sm:rounded-t-[0px] border-t-1 sm:border-t-0 flex sm:flex-col items-center justify-between bg-[#ffffff]  border-r border-[#989898] sm:static fixed bottom-0 z-1",
-};
-const parentStyles = {
-  open: "sm:flex items-center justify-between w-full py-3 border-b border-[#989898] sm:px-1 ",
-  close:
-    "sm:flex items-center justify-center w-full py-3 border-b border-[#989898]  ",
-};
 
 const SideBar = () => {
   const { setFilter } = useContentStore();
@@ -45,34 +38,39 @@ const SideBar = () => {
       console.log(response.data);
       window.location.reload();
 
-      console.log("Logged out");
+      console.log('Logged out');
     } catch (err) {
-      console.error("Logout failed", err);
+      console.error('Logout failed', err);
     }
   }
 
   useEffect(() => {
     getInfo();
   }, []);
+
   return (
     <div
-      className={`transition-all duration-500 ease-in-out  ${
-        open ? styles.open : styles.close
-      }`}
+      className={cn(
+        'fixed bottom-0 z-1 flex items-center justify-between rounded-t-3xl border-r border-neutral-300 bg-white transition duration-200 ease-in-out sm:static sm:flex-col sm:rounded-t-[0px]',
+        'h-auto w-full sm:h-screen sm:max-w-54',
+        open
+          ? 'border-t-1 px-3 pb-2 sm:border-t-0 sm:px-0'
+          : 'border-t-1 px-3 pb-2 sm:border-t-0 sm:px-0'
+      )}
     >
-      <div className="w-full flex sm:flex-col">
+      <div className="flex w-full sm:flex-col">
         <div
-          className={` transition-all duration-200 ease-in-out hidden ${
-            open ? parentStyles.open : parentStyles.close
-          }`}
+          className={cn(
+            'hidden w-full border-b border-neutral-300  transition duration-200 ease-in-out',
+            'sm:flex',
+            open ? 'items-center justify-between sm:px-2 py-3.5' : 'items-center py-4 justify-center'
+          )}
         >
           {/* LOGO SECTION */}
           {open ? (
-            <div className="flex items-center justify-between">
-              <span className="mr-2 ml-1">
-                <FaGraduationCap className=" text-[#585858] size-7" />
-              </span>
-              <p className="  text-[#585858] font-medium text-2xl">Brainly</p>
+            <div className="flex items-center gap-2">
+              <HugeIcons size={26} color="currentColor" strokeWidth={1.5} icon={Database01Icon} />
+              <p className="text-xl font-medium">Zyn</p>
             </div>
           ) : null}
           {/* MENU ICON */}
@@ -82,73 +80,94 @@ const SideBar = () => {
             }}
           >
             {open ? (
-              <TbLayoutSidebarLeftCollapse className="size-8 text-[#212121] cursor-pointer" />
+              <HugeIcons
+                size={24}
+                color="currentColor"
+                strokeWidth={1.5}
+                icon={SidebarLeft01Icon}
+              />
             ) : (
-              <TbLayoutSidebarRightCollapse className="size-8 text-[#212121] cursor-pointer" />
+              <HugeIcons
+                size={24}
+                color="currentColor"
+                strokeWidth={1.5}
+                icon={SidebarRight01Icon}
+              />
             )}
           </div>
         </div>
-        <div className="h-auto flex sm:flex-col items-start w-full">
+        <div className="flex h-auto w-full items-start gap-0.5 select-none sm:flex-col pt-0.5">
           <SideBarItem
             open={open}
-            logo={<GoHome className="size-6" />}
-            text={"Home"}
+            logo={<HugeIcons size={22} color="currentColor" strokeWidth={1.5} icon={Home09Icon} />}
+            text={'Home'}
             onClick={() => {
-              setFilter("all");
+              setFilter('all');
             }}
           />
           <SideBarItem
             open={open}
-            logo={<IoDocumentsOutline className="size-6" />}
-            text={"Documents"}
+            logo={
+              <HugeIcons
+                size={22}
+                color="currentColor"
+                strokeWidth={1.5}
+                icon={DocumentAttachmentIcon}
+              />
+            }
+            text={'Documents'}
             onClick={() => {
-              setFilter("text");
+              setFilter('text');
             }}
           />
           <SideBarItem
             open={open}
-            logo={<IoImageOutline className="size-6 " />}
-            text={"Images"}
+            logo={<HugeIcons size={22} color="currentColor" strokeWidth={1.5} icon={Image03Icon} />}
+            text={'Images'}
             onClick={() => {
-              setFilter("image");
+              setFilter('image');
             }}
           />
           <SideBarItem
             open={open}
-            logo={<FiYoutube className="size-6 " />}
-            text={"Videos"}
+            logo={<HugeIcons size={22} color="currentColor" strokeWidth={1.5} icon={Video02Icon} />}
+            text={'Videos'}
             onClick={() => {
-              setFilter("video");
+              setFilter('video');
             }}
           />
           <SideBarItem
             open={open}
-            logo={<IoLinkSharp className="size-6" />}
-            text={"Links"}
+            logo={<HugeIcons size={22} color="currentColor" strokeWidth={1.5} icon={Link01Icon} />}
+            text={'Links'}
             onClick={() => {
-              setFilter("URL");
+              setFilter('URL');
             }}
           />
         </div>
       </div>
 
       <div
-        onClick={() => {
-          logOut();
-        }}
-        className={
+        onClick={logOut}
+        className={cn(
+          'text-md mx-2 flex w-auto cursor-pointer items-center justify-center bg-blue-600 py-3 font-medium transition-colors duration-200 hover:bg-blue-500',
           open
-            ? "sm:w-19/20 w-fit flex items-center justify-center text-xl font-medium sm:bg-[#4345d7] bg-[#656565] sm:p-1 p-2 sm:rounded-lg rounded-full sm:mb-2 text-white hover:bg-[#383ab5] cursor-pointer"
-            : "w-fit sm:w-15/20 flex items-center justify-center text-xl font-medium bg-[#656565] rounded-full sm:mb-2 p-2 ml-2 mr-4 sm:mx-0 hover:bg-[#383ab5] cursor-pointer text-[#fff7f7] hover:text-white "
-        }
+            ? 'rounded-lg px-8 text-white'
+            : 'text-neutral-200 hover:text-neutral-100 sm:mx-0  sm:w-15/20 px-4 rounded-md '
+        )}
       >
         {open ? (
-          <span className=" sm:w-full w-auto sm:flex items-center justify-center cursor-pointer sm:py-3">
-            <LuLogOut className="size-6 static sm:hidden" />
-            <p className="hidden sm:flex w-fit"> {`Hey👋 ${info}`}</p>
+          <span
+            className={cn(
+              'w-auto cursor-pointer items-center justify-center gap-2 shrink-0',
+              'sm:flex sm:w-full'
+            )}
+          >
+            <HugeIcons size={24} color="currentColor" strokeWidth={2} icon={LogoutSquare01Icon} />
+            <p className="hidden w-fit sm:flex">Logout</p>
           </span>
         ) : (
-          <LuLogOut className="size-6" />
+          <HugeIcons size={24} color="currentColor" className="shrink-0 size-5" strokeWidth={2} icon={LogoutSquare01Icon} />
         )}
       </div>
     </div>
