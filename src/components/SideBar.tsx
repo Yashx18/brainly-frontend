@@ -63,13 +63,13 @@ const SideBar = () => {
           className={cn(
             'hidden w-full border-b border-neutral-300  transition duration-200 ease-in-out',
             'sm:flex',
-            open ? 'items-center justify-between sm:px-2 py-3.5' : 'items-center py-4 justify-center'
+            open ? 'items-center justify-between sm:px-2 py-3' : 'items-center py-4 justify-center'
           )}
         >
           {/* LOGO SECTION */}
           {open ? (
             <div className="flex items-center gap-2">
-              <HugeIcons size={26} color="currentColor" strokeWidth={1.5} icon={Database01Icon} />
+              <HugeIcons size={30} color="currentColor" strokeWidth={1.5} icon={Database01Icon} />
               <p className="text-xl font-medium">Zyn</p>
             </div>
           ) : null}
@@ -81,14 +81,14 @@ const SideBar = () => {
           >
             {open ? (
               <HugeIcons
-                size={24}
+                size={22}
                 color="currentColor"
                 strokeWidth={1.5}
                 icon={SidebarLeft01Icon}
               />
             ) : (
               <HugeIcons
-                size={24}
+                size={22}
                 color="currentColor"
                 strokeWidth={1.5}
                 icon={SidebarRight01Icon}
@@ -96,7 +96,7 @@ const SideBar = () => {
             )}
           </div>
         </div>
-        <div className="flex h-auto w-full items-start gap-0.5 select-none sm:flex-col pt-0.5">
+        <div className="flex h-auto w-full items-start gap-0.5 select-none sm:flex-col">
           <SideBarItem
             open={open}
             logo={<HugeIcons size={22} color="currentColor" strokeWidth={1.5} icon={Home09Icon} />}

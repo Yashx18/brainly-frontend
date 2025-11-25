@@ -9,6 +9,8 @@ import { ShareIcon } from "@/icons/ShareIcon";
 import { useContentStore } from "@/store";
 import { useState, useEffect } from "react";
 import { useCardPopUpData } from "@/store";
+import { HugeIcons } from "@/components/icons/HugeIcons";
+import { Add01Icon, Share08Icon } from "@hugeicons/core-free-icons";
 
 const Home = () => {
   const { open, selectedCard, closePopUp } = useCardPopUpData();
@@ -44,14 +46,18 @@ const Home = () => {
             variant="secondary"
             text="Share Brain"
             size="md"
-            startIcon={<ShareIcon />}
+            startIcon={
+              <HugeIcons icon={Share08Icon} size={18} color={'currentColor'} strokeWidth={2} />
+            }
           />
           <Button
             stateUpdater={setAddContent}
             variant="primary"
             text="Add content"
             size="md"
-            startIcon={<PlusIcon size="md" />}
+            startIcon={
+              <HugeIcons icon={Add01Icon} size={18} color={'currentColor'} strokeWidth={2} />
+            }
           />
         </div>
         {/* This is the Cards Section. */}

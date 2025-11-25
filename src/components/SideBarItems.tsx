@@ -13,10 +13,8 @@ export const SideBarItem = ({ text, logo, open, onClick }: SideBarProps) => {
     <div
       onClick={onClick}
       className={cn(
-        'flex w-full cursor-pointer items-center rounded-xl py-2 text-neutral-600 transition-colors duration-150 ease-in-out hover:bg-neutral-200 hover:text-neutral-900',
-        open
-          ? 'justify-center px-4 sm:justify-start'
-          : 'justify-center'
+        'flex w-full cursor-pointer items-center py-2 text-neutral-600 transition-colors duration-150 ease-in-out hover:bg-neutral-200 hover:text-neutral-900',
+        open ? 'justify-center rounded-lg px-4 sm:justify-start' : 'justify-center rounded-xl'
       )}
     >
       <div

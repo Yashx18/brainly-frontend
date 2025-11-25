@@ -1,118 +1,149 @@
-import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { useContentStore } from "../store";
-import { useNavigate } from "react-router-dom";
-import { MdVerified } from "react-icons/md";
+import axios from 'axios';
+import { useState } from 'react';
+import { useContentStore } from '../store';
+import { useNavigate } from 'react-router-dom';
+import { MdVerified } from 'react-icons/md';
+import { cn } from '@/lib/utils';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const SignIn = () => {
   const { fetchContent } = useContentStore();
-  const [signInMessage, setSignInMessage] = useState("");
-  const usernameRef = useRef<HTMLInputElement>(null);
-  const passwordeRef = useRef<HTMLInputElement>(null);
+  const [form, setForm] = useState({ username: '', password: '' });
+  const [signInMessage, setSignInMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const goToHome = () => {
     setTimeout(() => {
-      navigate("/home");
+      navigate('/home');
     }, 2000);
   };
+
   const goToSignUp = () => {
-    navigate("/sign-up");
+    navigate('/sign-up');
   };
 
-  async function signIn() {
-    const username = usernameRef.current?.value;
-    const password = passwordeRef.current?.value;
+  async function signIn(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await axios.post(
         `${API_URL}/api/auth/sign-in`,
         {
-          username,
-          password,
+          username: form.username,
+          password: form.password,
         },
         {
           withCredentials: true,
         }
       );
-      
+
       if (response.data.done) {
         const message = response.data.message;
         setSignInMessage(message);
         goToHome();
         setTimeout(() => {
           fetchContent();
+          setLoading(false);
         }, 1000);
       } else {
-        alert("User not found");
+        setLoading(false);
+        alert('User not found');
       }
     } catch (error) {
-      alert("Error signing in");
+      setLoading(false);
+      alert('Error signing in');
       console.error(error);
     }
   }
 
-  useEffect(() => {
-  }, [signInMessage]);
   return (
-    <div
-      className="fixed top-0 left-0 w-screen h-full bg-[#3131315f] flex items-center justify-center z-1
-      "
-    >
-      <div className="bg-white rounded-md w-full max-w-80 h-auto px-8 py-6 flex flex-col items-center justify-center">
-        <div className="w-full flex items-center justify-between mb-4">
-          <span className="text-2xl font-medium ">Sign In</span>
-        </div>
+    <div className="font-inter fixed top-0 left-0 z-1 flex h-full w-screen items-center justify-center bg-neutral-200">
+      {/* Modal Body */}
+      <div className="flex h-auto w-full max-w-sm flex-col items-center justify-center rounded-lg bg-white p-6 shadow-lg">
         <form
           action="#"
           className="w-full"
-          onSubmit={(e) => {
-            e.preventDefault();
-            signIn();
-          }}
+          autoComplete="off"
+          onSubmit={signIn}
+          aria-labelledby="sign-in-title"
         >
-          <div className="mb-2">
-            <p>Username</p>
-            <input
-              ref={usernameRef}
-              type="text"
-              className="w-full border border-[#969696] focus-within:outline-[#919191] rounded-md text-black px-2 py-1"
-            />
-          </div>
-          <div className="mb-2">
-            <p>Password</p>
-            <input
-              ref={passwordeRef}
-              type="password"
-              className="w-full border border-[#969696] focus-within:outline-[#919191] rounded-md text-black px-2 py-1"
-            />
-          </div>
-          {signInMessage && (
-            <div className="w-fit border rounded-lg bg-white shadow-sm flex items-center justify-start mb-2">
-              <div className="px-2 py-1 flex items-center justify-between">
-                <MdVerified />
-                <p className="text-lg font-medium ml-1">{signInMessage}</p>
-              </div>
-            </div>
-          )}{" "}
-          <div>
-            <div
-              className="w-full cursor-pointer bg-purple-500 text-white font-medium flex items-center justify-center py-2 rounded-md hover:bg-[#9f579c]"
-              onClick={signIn}
-            >
+          <div className="mb-5 flex w-full items-center justify-between">
+            <h1 id="sign-in-title" className="text-2xl font-medium text-neutral-900">
               Sign In
-            </div>
+            </h1>
           </div>
-          <div className="flex items-center justify-center mt-5">
+          <div className="mb-2">
+            <label htmlFor="username" className="mb-1 block text-sm font-medium text-gray-700">
+              Username
+            </label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              value={form.username}
+              autoComplete="username"
+              onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
+              className="text-md w-full rounded-md border border-neutral-300 bg-neutral-100 px-3 py-1.5 text-neutral-800 ring-blue-300 transition duration-150 focus:ring-2 focus:outline-none"
+              required
+              aria-required="true"
+              aria-label="Username"
+            />
+          </div>
+          <div className="mb-2">
+            <label htmlFor="password" className="mb-1 block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={form.password}
+              autoComplete="current-password"
+              onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+              className="text-md w-full rounded-md border border-neutral-300 bg-neutral-100 px-3 py-1.5 text-neutral-800 ring-blue-300 transition duration-150 focus:ring-2 focus:outline-none"
+              required
+              aria-required="true"
+              aria-label="Password"
+            />
+          </div>
+          {/* Toast notification fixed to bottom right */}
+          {signInMessage && (
+            <div
+              className="fixed bottom-6 right-6 z-50 flex min-w-[250px] max-w-sm items-center rounded-lg border border-blue-300 bg-white px-4 py-3 shadow-xl animate-fadeIn pointer-events-auto"
+              role="status"
+              aria-live="polite"
+            >
+              <MdVerified aria-hidden="true" className="text-blue-500 mr-2 text-xl" />
+              <span className="text-base font-medium text-neutral-800">{signInMessage}</span>
+            </div>
+          )}
+          <div>
+            <button
+              type="submit"
+              disabled={loading}
+              className={cn(
+                "flex w-full my-6 cursor-pointer items-center justify-center rounded-md bg-blue-500 py-2 font-medium text-white transition-all duration-200 will-change-transform hover:bg-blue-600 active:scale-98 active:bg-blue-600",
+                loading && "cursor-not-allowed opacity-70"
+              )}
+              aria-busy={loading}
+            >
+              {loading ? 'Signing In...' : 'Sign In'}
+            </button>
+          </div>
+          <div className=" flex items-center justify-center text-neutral-800">
             <span>
-              Don't have an account?{" "}
-              <span
-                className=" text-[#5a54c7] cursor-pointer"
+              Don't have an account?{' '}
+              <button
+                type="button"
+                className="cursor-pointer border-none bg-transparent p-0 align-baseline font-medium text-blue-600"
                 onClick={goToSignUp}
+                tabIndex={0}
               >
                 Sign Up
-              </span>
+              </button>
             </span>
           </div>
         </form>

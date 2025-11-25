@@ -1,37 +1,32 @@
-import type { ReactElement } from "react";
+import type { ReactElement } from 'react';
+import { cn } from '@/lib/utils';
 
 type ButtonProps = {
-  variant: "primary" | "secondary";
-  size: "sm" | "md" | "lg";
+  variant: 'primary' | 'secondary';
+  size: 'sm' | 'md' | 'lg';
   text: string;
   startIcon?: ReactElement;
   endIcon?: any;
   stateUpdater?: any;
 };
 
-const variantStyles = {
-  primary: "bg-[#4345d7]  text-[#dbe4ff] hover:bg-[#383ab5]",
-  secondary: " bg-[#dbe4ff] text-[#4345d7] hover:bg-[#c1c8de]",
-};
-
-const sizeStyles = {
-  sm: "px-2 py-1",
-  md: "px-4 py-2",
-  lg: "px-5 py-3",
-};
-
-const defaultStyles =
-  "font-semi-bold text-md flex items-center justify-between rounded-xl cursor-pointer mx-1 sm:my-2 my-1";
-
-export const Button = ({variant, size, text, startIcon, stateUpdater, endIcon}: ButtonProps) => {
+export const Button = ({ variant, size, text, startIcon, stateUpdater, endIcon }: ButtonProps) => {
   return (
-    // @ts-ignore
-    <div className="rounded-xl" onClick={() => stateUpdater((val) => !val)}>
+    <div className="rounded-xl" onClick={() => stateUpdater((val: any) => !val)}>
       <div
-        className={`${variantStyles[variant]} ${defaultStyles} ${sizeStyles[size]} `}
+        className={cn(
+          'font- mx-1 my-1 flex cursor-pointer items-center justify-between rounded-xl text-sm transition duration-200 will-change-transform select-none active:scale-98 sm:my-2',
+          size === 'sm' && 'px-2 py-1',
+          size === 'md' && 'px-3 py-2',
+          size === 'lg' && 'px-5 py-3',
+          variant === 'primary' &&
+            'border  bg-blue-600 text-white hover:border-blue-300 hover:bg-blue-500',
+          variant === 'secondary' &&
+            'border bg-blue-200 text-blue-600 hover:text-blue-500 hover:border-blue-50 hover:bg-blue-100'
+        )}
       >
         {startIcon}
-        <p className="ml-1 sm:block hidden">{text}</p>
+        <p className="ml-1 hidden sm:block">{text}</p>
         {endIcon}
       </div>
     </div>
