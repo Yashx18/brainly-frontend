@@ -4,8 +4,6 @@ import { Card } from "@/components/Card";
 import { CardPopUp } from "@/components/CardPopUp";
 import ShareBrain from "@/components/ShareBrain";
 import SideBar from "@/components/SideBar";
-import { PlusIcon } from "@/icons/PlusIcon";
-import { ShareIcon } from "@/icons/ShareIcon";
 import { useContentStore } from "@/store";
 import { useState, useEffect } from "react";
 import { useCardPopUpData } from "@/store";
