@@ -3,7 +3,6 @@ import axios from 'axios';
 import { cn } from '@/lib/utils';
 
 import { HugeIcons } from '@/components/icons/HugeIcons';
-import { Database01Icon } from '@hugeicons/core-free-icons';
 import {
   Video02Icon,
   DocumentAttachmentIcon,

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { MdVerified } from "react-icons/md";
 import { Switch } from "./ui/switch";
-import { cn } from "@/lib/utils";
 
 interface ShareBrainProps {
   setPage: React.Dispatch<React.SetStateAction<boolean>>;
