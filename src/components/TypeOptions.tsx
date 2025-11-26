@@ -1,28 +1,26 @@
+import { cn } from '@/lib/utils';
+
 interface optionsProps {
   text: string;
-  variant: "primary" | "secondary"
-  onClick?: () => void
+  variant: 'primary' | 'secondary';
+  onClick?: () => void;
 }
 
-
-const variantClasses = {
-  primary: "bg-[#9f579c] text-white",
-  secondary: "bg-white text-black border border-[#353535]",
-};
-
-
-const TypeOptions = ({
-  text,
-  onClick,
-  variant
-}: optionsProps) => {
+const TypeOptions = ({ text, onClick, variant }: optionsProps) => {
   return (
-    <div
+    <button
+      type="button"
       onClick={onClick}
-      className={`flex items-center justify-center px-2 py-1  ${variantClasses[variant]} w-auto  cursor-pointer rounded-md mr-2`}
+      className={cn(
+        'flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 text-base transition-colors duration-200 will-change-transform select-none focus:outline-none',
+        variant === 'primary' && 'bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-600',
+        variant === 'secondary' &&
+          'border border-blue-200 bg-blue-100 text-blue-600 hover:bg-blue-50 hover:text-blue-500 active:bg-blue-200'
+      )}
+      tabIndex={0}
     >
       {text}
-    </div>
+    </button>
   );
 };
 

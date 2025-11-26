@@ -17,10 +17,6 @@ const Home = () => {
   const { content, fetchContent } = useContentStore();
   const API_URL = import.meta.env.VITE_API_URL;
 
-  // console.log(content);
-
-  // const { open } = useCardPopUp();
-
   useEffect(() => {
     fetchContent();
   }, [fetchContent]);
@@ -69,7 +65,7 @@ const Home = () => {
           />
         )}
         {/* Masonry Section */}
-        <div className="Content relative h-full w-screen overflow-y-auto sm:w-full sm:p-1">
+        <div className="Content relative h-full w-screen overflow-y-auto sm:w-full p-2 sm:p-1">
           <div className="mt-1 mb-19 columns-1 gap-1 sm:mt-0 sm:columns-2 md:columns-3 lg:columns-4">
             {content.map(({ title, link, type, _id }) => {
               let src = '';
@@ -79,7 +75,7 @@ const Home = () => {
 
               return (
                 <>
-                  <div className="mb-1 break-inside-avoid">
+                  <div className="sm:mb-1 mb-2 break-inside-avoid">
                     <Card
                       key={_id}
                       // @ts-ignore

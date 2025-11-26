@@ -20,7 +20,7 @@ import { cn } from '@/lib/utils';
 // import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
-  const { setFilter } = useContentStore();
+  const { filter, setFilter } = useContentStore();
   const [open, setOpen] = useState(false);
   const { getInfo } = userInfo();
   const API_URL = import.meta.env.VITE_API_URL;
@@ -51,19 +51,17 @@ const SideBar = () => {
   return (
     <div
       className={cn(
-        'fixed bottom-0 z-1 flex items-center justify-between rounded-t-3xl border-r border-neutral-300 bg-white transition duration-200 ease-in-out sm:static sm:flex-col sm:rounded-t-[0px]',
+        'fixed bottom-0 z-1 flex items-center justify-between border-r border-neutral-300 bg-white pt-2 transition duration-200 ease-in-out sm:static sm:flex-col sm:rounded-t-[0px] sm:pt-0',
         'h-auto w-full sm:h-screen sm:max-w-54',
-        open
-          ? 'border-t-1 px-3 pb-2 sm:border-t-0 sm:px-0'
-          : 'border-t-1 px-3 pb-2 sm:border-t-0 sm:px-0'
+        open ? 'px-3 pb-2 sm:px-0' : 'px-3 pb-2 sm:px-0'
       )}
     >
       <div className="flex w-full sm:flex-col">
         <div
           className={cn(
-            'hidden w-full border-b border-neutral-300  transition duration-200 ease-in-out',
+            'hidden w-full border-b border-neutral-300 transition duration-200 ease-in-out',
             'sm:flex',
-            open ? 'items-center justify-between sm:px-2 py-3' : 'items-center py-4 justify-center'
+            open ? 'items-center justify-between py-3 sm:px-2' : 'items-center justify-center py-4'
           )}
         >
           {/* LOGO SECTION */}
@@ -78,6 +76,7 @@ const SideBar = () => {
             onClick={() => {
               setOpen((val) => !val);
             }}
+            className="cursor-pointer transition-colors duration-150 hover:text-neutral-500"
           >
             {open ? (
               <HugeIcons
@@ -99,7 +98,15 @@ const SideBar = () => {
         <div className="flex h-auto w-full items-start gap-0.5 select-none sm:flex-col">
           <SideBarItem
             open={open}
-            logo={<HugeIcons size={22} color="currentColor" strokeWidth={1.5} icon={Home09Icon} />}
+            logo={
+              <HugeIcons
+                size={22}
+                color="currentColor"
+                strokeWidth={1.5}
+                icon={Home09Icon}
+                className={cn(filter === 'all' ? 'text-blue-600' : '')}
+              />
+            }
             text={'Home'}
             onClick={() => {
               setFilter('all');
@@ -113,6 +120,7 @@ const SideBar = () => {
                 color="currentColor"
                 strokeWidth={1.5}
                 icon={DocumentAttachmentIcon}
+                className={cn(filter === 'text' ? 'text-blue-600' : '')}
               />
             }
             text={'Documents'}
@@ -122,7 +130,15 @@ const SideBar = () => {
           />
           <SideBarItem
             open={open}
-            logo={<HugeIcons size={22} color="currentColor" strokeWidth={1.5} icon={Image03Icon} />}
+            logo={
+              <HugeIcons
+                size={22}
+                color="currentColor"
+                strokeWidth={1.5}
+                icon={Image03Icon}
+                className={cn(filter === 'image' ? 'text-blue-600' : '')}
+              />
+            }
             text={'Images'}
             onClick={() => {
               setFilter('image');
@@ -130,7 +146,15 @@ const SideBar = () => {
           />
           <SideBarItem
             open={open}
-            logo={<HugeIcons size={22} color="currentColor" strokeWidth={1.5} icon={Video02Icon} />}
+            logo={
+              <HugeIcons
+                size={22}
+                color="currentColor"
+                strokeWidth={1.5}
+                icon={Video02Icon}
+                className={cn(filter === 'video' ? 'text-blue-600' : '')}
+              />
+            }
             text={'Videos'}
             onClick={() => {
               setFilter('video');
@@ -138,7 +162,15 @@ const SideBar = () => {
           />
           <SideBarItem
             open={open}
-            logo={<HugeIcons size={22} color="currentColor" strokeWidth={1.5} icon={Link01Icon} />}
+            logo={
+              <HugeIcons
+                size={22}
+                color="currentColor"
+                strokeWidth={1.5}
+                icon={Link01Icon}
+                className={cn(filter === 'URL' ? 'text-blue-600' : '')}
+              />
+            }
             text={'Links'}
             onClick={() => {
               setFilter('URL');
@@ -146,20 +178,20 @@ const SideBar = () => {
           />
         </div>
       </div>
-
+      {/* Logout button */}
       <div
         onClick={logOut}
         className={cn(
-          'text-md mx-2 flex w-auto cursor-pointer items-center justify-center bg-blue-600 py-3 font-medium transition-colors duration-200 hover:bg-blue-500',
+          'text-md mx-2 flex w-auto cursor-pointer items-center justify-center bg-blue-600 py-2 font-medium transition-colors duration-200 hover:bg-blue-500 sm:py-3',
           open
             ? 'rounded-lg px-8 text-white'
-            : 'text-neutral-200 hover:text-neutral-100 sm:mx-0  sm:w-15/20 px-4 rounded-md '
+            : 'rounded-md px-2 text-neutral-200 hover:text-neutral-100 sm:mx-0 sm:w-15/20 sm:px-4'
         )}
       >
         {open ? (
           <span
             className={cn(
-              'w-auto cursor-pointer items-center justify-center gap-2 shrink-0',
+              'w-auto shrink-0 cursor-pointer items-center justify-center gap-2',
               'sm:flex sm:w-full'
             )}
           >
@@ -167,7 +199,13 @@ const SideBar = () => {
             <p className="hidden w-fit sm:flex">Logout</p>
           </span>
         ) : (
-          <HugeIcons size={24} color="currentColor" className="shrink-0 size-5" strokeWidth={2} icon={LogoutSquare01Icon} />
+          <HugeIcons
+            size={24}
+            color="currentColor"
+            className="size-5 shrink-0"
+            strokeWidth={2}
+            icon={LogoutSquare01Icon}
+          />
         )}
       </div>
     </div>

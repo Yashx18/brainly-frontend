@@ -21,7 +21,7 @@ interface ContentStore {
 
 export const useContentStore = create<ContentStore>((set, get) => ({
   content: [],
-  filter: "",
+  filter: "all",
 
   fetchContent: async () => {
     try {

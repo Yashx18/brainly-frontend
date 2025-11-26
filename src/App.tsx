@@ -15,15 +15,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
-            </ProtectedRoute>
+             </ProtectedRoute>
           }
         />
         <Route
           path="/home"
           element={
-             <ProtectedRoute>
+              <ProtectedRoute>
               <Home />
-             </ProtectedRoute>
+              </ProtectedRoute>
           }
         />
         {/* <Route path="/" element={<Home />} /> */}
