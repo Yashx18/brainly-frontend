@@ -44,18 +44,26 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
   const newTitleRef = useRef<HTMLInputElement>(null);
   const newLinkRef = useRef<HTMLInputElement>(null);
 
+  // Default to current content type
   const [dataType, setDataType] = useState<(typeof ContentType)[keyof typeof ContentType]>(
     type || ContentType.Text
   );
+
+  // Only show edit form after clicking edit button (never default open)
   const [showEdit, setShowEdit] = useState(false);
+
+  // For toast notifications
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
+  // Clean up edit state when popup closes
   function handleClosePopUp() {
     setShowEdit(false);
     if (setEdit) setEdit(false);
     closePopUp();
   }
 
+  // Show a toast for 2.5 seconds (success or error).
+  // This function sets a toast and auto-hides it after a short timeout.
   function showToast(type: 'success' | 'error', message: string) {
     setToast({ type, message });
     setTimeout(() => setToast(null), 2500);
@@ -64,6 +72,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
   async function updateContent() {
     const newTitle = newTitleRef.current?.value?.trim();
 
+    // Validation logic
     let newLink = '';
     let file: File | null = null;
     if (dataType === 'image' || dataType === 'video') {
@@ -116,16 +125,18 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
     }
   }
 
+  // Only update UI (the modal), not the background.
   return (
     <div className="pointer-events-none fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center">
       <div
         className={cn(
-          'relative z-10 flex w-full max-w-lg flex-col items-center justify-center rounded-lg border border-neutral-200 bg-white p-4 shadow-lg',
+          'relative z-10 flex w-full max-w-lg flex-col items-center justify-center rounded-xl border border-neutral-200 bg-white p-4 shadow-lg',
           'pointer-events-auto max-h-[90vh] overflow-auto'
         )}
         style={{ maxWidth: 480 }}
         tabIndex={-1}
       >
+        {/* Toast Notification */}
         {toast && (
           <div
             className={cn(
@@ -158,20 +169,21 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
             if (showEdit) updateContent();
           }}
         >
+          {/* Modal Header */}
           <div className="mb-4 flex w-full items-center justify-between">
-            <div className="flex min-w-0 items-center gap-2">
+            <div className="flex min-w-0 items-center gap-2 text-neutral-800">
               {type && (
                 <HugeIcons
                   size={22}
                   color="currentColor"
                   strokeWidth={1.8}
                   icon={typeIconsMap[type]}
-                  className="shrink-0"
+                  className="shrink-0 "
                   aria-hidden="true"
                 />
               )}
               {!showEdit ? (
-                <h1 className="truncate text-xl font-semibold text-neutral-900">{title}</h1>
+                <h1 className="truncate text-xl font-medium text-neutral-800">{title}</h1>
               ) : (
                 <input
                   ref={newTitleRef}
@@ -179,7 +191,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
                   placeholder={title}
                   defaultValue={title}
                   className={cn(
-                    'w-full rounded-md border bg-neutral-100 px-3 py-1.5 text-lg text-neutral-900 placeholder-neutral-400 ring-blue-300 focus:ring-2 focus:outline-none p-2'
+                    'w-full rounded-md border bg-neutral-100 p-2 px-3 py-1.5 text-lg text-neutral-900 placeholder-neutral-400 ring-blue-300 focus:ring-2 focus:outline-none'
                   )}
                   required
                   aria-required="true"
@@ -231,8 +243,9 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
               </button>
             </div>
           </div>
+          {/* Content */}
           {!showEdit ? (
-            <div className="mb-4 max-h-[45vh] w-full overflow-auto">
+            <div className="h-full w-full overflow-auto">
               {type === 'URL' && (
                 <a
                   href={link}
@@ -250,7 +263,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
                   <img
                     src={link}
                     alt={title}
-                    className="my-2 max-h-56 w-full rounded-lg border border-neutral-200 object-contain"
+                    className="w-full rounded-lg border border-neutral-200 object-contain"
                     style={{ maxWidth: '100%' }}
                   />
                 </div>
@@ -258,7 +271,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
               {type === 'video' && (
                 <div className="relative flex w-full items-center justify-center">
                   <video
-                    className="my-2 max-h-56 w-full rounded-lg border border-neutral-200 object-contain"
+                    className="w-full rounded-lg border border-neutral-200 object-contain"
                     controls
                     style={{ maxWidth: '100%' }}
                   >
@@ -267,7 +280,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
                 </div>
               )}
               {type === 'text' && (
-                <div className="max-h-40 w-full overflow-auto rounded-lg border border-neutral-200 bg-neutral-100 px-3 py-2">
+                <div className="w-full overflow-auto rounded-lg border border-neutral-200 bg-neutral-100 px-3 py-2">
                   <p className="text-base break-words text-neutral-800">{link}</p>
                 </div>
               )}
@@ -287,7 +300,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
                   type="file"
                   accept={dataType === 'image' ? 'image/*' : 'video/*'}
                   className={cn(
-                    'block w-full rounded-md border border-neutral-300 bg-neutral-100 text-sm text-neutral-800 transition duration-150 focus:ring-2 focus:ring-blue-300 focus:outline-none p-2'
+                    'block w-full rounded-md border border-neutral-300 bg-neutral-100 p-2 text-sm text-neutral-800 transition duration-150 focus:ring-2 focus:ring-blue-300 focus:outline-none'
                   )}
                   required
                   aria-required="true"
@@ -301,7 +314,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
                   defaultValue={link}
                   placeholder={'Add content here!'}
                   className={cn(
-                    'block w-full rounded-md border border-neutral-300 bg-neutral-100  text-sm text-neutral-800 transition duration-150 focus:ring-2 focus:ring-blue-300 focus:outline-none p-2'
+                    'block w-full rounded-md border border-neutral-300 bg-neutral-100 p-2 text-sm text-neutral-800 transition duration-150 focus:ring-2 focus:ring-blue-300 focus:outline-none'
                   )}
                   required
                   aria-required="true"
@@ -311,6 +324,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
             </div>
           )}
 
+          {/* Content Type Options */}
           {showEdit && (
             <div className="mb-4">
               <label className="mb-1 block text-sm font-medium text-gray-700">Type</label>
@@ -339,6 +353,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
             </div>
           )}
 
+          {/* Update Button */}
           {showEdit && (
             <button
               type="submit"
