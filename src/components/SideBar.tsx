@@ -13,7 +13,6 @@ import {
   LogoutSquare01Icon,
   SidebarLeft01Icon,
   SidebarRight01Icon,
-  Database01Icon,
 } from '@hugeicons/core-free-icons';
 import { cn } from '@/lib/utils';
 
@@ -67,8 +66,19 @@ const SideBar = () => {
           {/* LOGO SECTION */}
           {open ? (
             <div className="flex items-center gap-2">
-              <HugeIcons size={30} color="currentColor" strokeWidth={1.5} icon={Database01Icon} />
-              <p className="text-xl font-medium">Zyn</p>
+              <svg
+                width="64"
+                height="30"
+                viewBox="0 0 84 39"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-sky-600  "
+              >
+                <path
+                  d="M0.00118755 38.7383V34.0583L19.8652 5.45828H1.14519V-0.0017221H27.7172V4.62628L7.85319 33.2783H28.1852V38.7383H0.00118755ZM36.1501 38.7383V21.2663L22.8901 -0.0017221H29.8061L40.4141 17.2103H37.9701L48.5261 -0.0017221H55.4421L42.2341 21.2663V38.7383H36.1501ZM53.2809 38.7383V-0.0017221H58.2209L79.9569 30.0023L77.6169 30.3663V-0.0017221H83.7009V38.7383H78.7609L57.1809 8.52628L59.4169 8.11028V38.7383H53.2809Z"
+                  fill="currentColor"
+                />
+              </svg>
             </div>
           ) : null}
           {/* MENU ICON */}

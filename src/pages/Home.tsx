@@ -38,7 +38,7 @@ const Home = () => {
           <Button
             stateUpdater={setShareBrain}
             variant="secondary"
-            text="Share Brain"
+            text="Share ZYN"
             size="md"
             startIcon={
               <HugeIcons icon={Share08Icon} size={18} color={'currentColor'} strokeWidth={2} />
@@ -66,7 +66,7 @@ const Home = () => {
         )}
         {/* Masonry Section */}
         <div className="Content relative h-full w-screen overflow-y-auto sm:w-full p-2 sm:p-1">
-          <div className="mt-1 mb-19 columns-1 gap-1 sm:mt-0 sm:columns-2 md:columns-3 lg:columns-4">
+          <div className="mt-1 mb-19 columns-1 gap-1 sm:mt-0 sm:columns-2 md:columns-3 lg:columns-4 ">
             {content.map(({ title, link, type, _id }) => {
               let src = '';
               if (type === 'image' || type === 'video') {

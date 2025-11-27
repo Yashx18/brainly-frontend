@@ -1,10 +1,10 @@
-import "./App.css";
-import Home from "./pages/Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
-import ShareBrainPage from "./pages/ShareBrainPage";
-import ProtectedRoute from "./components/ProtectedRoute";
+import './App.css';
+import Home from './pages/Home';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
+import ShareBrainPage from './pages/ShareBrainPage';
+ import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -13,17 +13,17 @@ function App() {
         <Route
           path="/"
           element={
-            <ProtectedRoute>
-              <Home />
+             <ProtectedRoute>
+            <Home />
              </ProtectedRoute>
           }
         />
         <Route
           path="/home"
           element={
-              <ProtectedRoute>
-              <Home />
-              </ProtectedRoute>
+             <ProtectedRoute>
+            <Home />
+             </ProtectedRoute>
           }
         />
         {/* <Route path="/" element={<Home />} /> */}
