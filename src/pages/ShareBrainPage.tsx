@@ -47,7 +47,7 @@ const ShareBrainPage = () => {
         </a>
       </div>
       <div className={cn('Content h-full w-full overflow-y-auto bg-neutral-100 p-2')}>
-        <div className={cn('columns-1 gap-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-6')}>
+        <div className={cn('columns-1 gap-1 sm:columns-2 md:columns-3 lg:columns-4')}>
           {data.map((item) => {
             return (
               <div
