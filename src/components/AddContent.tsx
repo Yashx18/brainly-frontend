@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import TypeOptions from './TypeOptions';
 import { useContentStore } from '../store';
-import { cn } from '@/lib/utils'; // Adjust the import path if needed
+import { cn } from '@/lib/utils';
 
 const ContentType = {
   Video: 'video',
@@ -83,7 +83,7 @@ const AddContent = ({ setAddContent }: AddContentProps) => {
   return (
     <div className="font-inter fixed top-0 left-0 z-1 flex h-full w-screen items-center justify-center bg-neutral-700/40 px-2">
       {/* Modal Body styled like SignIn */}
-      <div className="relative flex h-auto w-full max-w-sm flex-col items-center justify-center rounded-lg bg-white p-6 shadow-lg">
+      <div className="relative flex h-auto w-full max-w-sm flex-col items-center justify-center rounded-lg bg-white p-6 shadow-lg z-20">
         {/* Modal header row */}
         <div className="mb-5 flex w-full items-center justify-between">
           <h1 className="text-2xl font-medium text-neutral-900">Add Content</h1>

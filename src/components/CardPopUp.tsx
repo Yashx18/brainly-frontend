@@ -125,15 +125,13 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
     }
   }
 
-  // Only update UI (the modal), not the background.
   return (
-    <div className="pointer-events-none fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center">
+    <div className="fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center bg-neutral-700/30 px-3">
       <div
         className={cn(
           'relative z-10 flex w-full max-w-lg flex-col items-center justify-center rounded-xl border border-neutral-200 bg-white p-4 shadow-lg',
-          'pointer-events-auto max-h-[90vh] overflow-auto'
+          'pointer-events-auto max-h-[90vh] max-w-[480px] overflow-auto'
         )}
-        style={{ maxWidth: 480 }}
         tabIndex={-1}
       >
         {/* Toast Notification */}
@@ -178,7 +176,7 @@ export const CardPopUp = ({ title, link, type }: CardPopUpProps) => {
                   color="currentColor"
                   strokeWidth={1.8}
                   icon={typeIconsMap[type]}
-                  className="shrink-0 "
+                  className="shrink-0"
                   aria-hidden="true"
                 />
               )}

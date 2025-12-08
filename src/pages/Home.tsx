@@ -1,14 +1,14 @@
-import AddContent from "@/components/AddContent";
-import { Button } from "@/components/Button";
-import { Card } from "@/components/Card";
-import { CardPopUp } from "@/components/CardPopUp";
-import ShareBrain from "@/components/ShareBrain";
-import SideBar from "@/components/SideBar";
-import { useContentStore } from "@/store";
-import { useState, useEffect } from "react";
-import { useCardPopUpData } from "@/store";
-import { HugeIcons } from "@/components/icons/HugeIcons";
-import { Add01Icon, Share08Icon } from "@hugeicons/core-free-icons";
+import AddContent from '@/components/AddContent';
+import { Button } from '@/components/Button';
+import { Card } from '@/components/Card';
+import { CardPopUp } from '@/components/CardPopUp';
+import ShareBrain from '@/components/ShareBrain';
+import SideBar from '@/components/SideBar';
+import { useContentStore } from '@/store';
+import { useState, useEffect } from 'react';
+import { useCardPopUpData } from '@/store';
+import { HugeIcons } from '@/components/icons/HugeIcons';
+import { Add01Icon, Share08Icon } from '@hugeicons/core-free-icons';
 
 const Home = () => {
   const { open, selectedCard, closePopUp } = useCardPopUpData();
@@ -65,9 +65,9 @@ const Home = () => {
           />
         )}
         {/* Masonry Section */}
-        <div className="Content relative h-full w-screen overflow-y-auto sm:w-full p-2 sm:p-1">
-          <div className="mt-1 mb-19 columns-1 gap-1 sm:mt-0 sm:columns-2 md:columns-3 lg:columns-4 ">
-            {content.map(({ title, link, type, _id }) => {
+        <div className="Content relative h-full w-screen overflow-y-auto p-2 sm:w-full sm:p-1">
+          <div className="mt-1 mb-19 columns-1 gap-1 sm:mt-0 sm:columns-2 md:columns-3 lg:columns-4">
+            {content.map(({ title, link, type, index }) => {
               let src = '';
               if (type === 'image' || type === 'video') {
                 src = `${API_URL}${link}`;
@@ -75,9 +75,9 @@ const Home = () => {
 
               return (
                 <>
-                  <div className="sm:mb-1 mb-2 break-inside-avoid">
+                  <div className="mb-2 break-inside-avoid sm:mb-1">
                     <Card
-                      key={_id}
+                      key={index}
                       // @ts-ignore
                       type={type}
                       link={link == 'image' ? src : link}
